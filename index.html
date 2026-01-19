@@ -13,24 +13,41 @@
         }
 
         :root {
-            --bg-main: #040513;
-            --accent-teal: #25e0c6;
-            --accent-blue: #3b82ff;
-            --accent-pink: #ff3af5;
-            --text-main: #f5f7ff;
+            /* Futuristic AI (Neon) theme */
+            --page-bg: #050B18;
+            --surface: rgba(255,255,255,0.04);
+            --header-bg: rgba(5,11,24,0.65);
+            --text: #E5E7EB;
+            --muted: #94A3B8;
+            --border: rgba(255,255,255,0.10);
+            --primary: #00E5FF;
+            --accent:  #7C3AED;
+            --cta-text: #061018;
+            --shadow: 0 18px 40px rgba(0,0,0,0.45);
+
+            --radius-lg: 18px;
+            --focus-ring: 0 0 0 4px rgba(0, 229, 255, 0.18);
+
+            /* Back-compat mappings (existing CSS uses these) */
+            --bg-main: var(--page-bg);
+            --accent-blue: var(--primary);
+            --accent-teal: var(--primary);
+            --accent-pink: var(--accent);
+            --text-main: var(--text);
         }
 
         body {
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background:
-                radial-gradient(circle at 0% 0%, #25e0c644 0, transparent 45%),
-                radial-gradient(circle at 100% 90%, #ff3af544 0, transparent 50%),
-                radial-gradient(circle at 15% 80%, #3b82ff33 0, transparent 45%),
-                #040513;
-            color: var(--text-main);
+                radial-gradient(circle at 10% 15%, rgba(0, 229, 255, 0.12) 0, transparent 55%),
+                radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.14) 0, transparent 55%),
+                radial-gradient(circle at 55% 92%, rgba(0, 229, 255, 0.08) 0, transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.02), transparent 35%),
+                var(--page-bg);
+            color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
-            font-size: 16px; /* по-голям базов шрифт */
+            font-size: 16px;
             line-height: 1.7;
         }
 
@@ -43,10 +60,10 @@
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
             background-size: 80px 80px;
-            opacity: 0.4;
+            opacity: 0.35;
             transform-origin: center top;
             transform: perspective(900px) rotateX(62deg) translateY(-120px);
             pointer-events: none;
@@ -63,8 +80,8 @@
             top: 0;
             z-index: 10;
             backdrop-filter: blur(20px);
-            background: linear-gradient(90deg, #040513ee, #05071bee);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav {
@@ -115,7 +132,7 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            border: 2px solid #25e0c690;
+            border: 2px solid rgba(0, 229, 255, 0.38);
             width: 80px;
             height: 80px;
             top: 50%;
@@ -127,7 +144,7 @@
         }
 
         .orb-2 {
-            border-color: #7a5cff90;
+            border-color: rgba(124, 58, 237, 0.36);
             width: 95px;
             height: 95px;
             animation: orbitSpin2 10s linear infinite;
@@ -146,7 +163,7 @@
             letter-spacing: 0.12em;
             font-size: 20px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #6fffe9, #ff8cf9, #7a9dff);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -154,7 +171,7 @@
 
         .logo-sub {
             font-size: 11px;
-            opacity: 0.8;
+            color: var(--muted);
             text-transform: uppercase;
         }
 
@@ -162,17 +179,21 @@
 
         .nav-links {
             display: flex;
-            gap: 34px;
-            font-size: 17px;
+            gap: 26px;
+            font-size: 16px;
             flex: 1;
             justify-content: center;
+            flex-wrap: wrap;
+            row-gap: 10px;
         }
 
         .nav-links a {
             position: relative;
             padding-bottom: 2px;
-            opacity: 0.9;
+            opacity: 0.95;
             font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
         }
 
         .nav-links a::after {
@@ -182,7 +203,7 @@
             bottom: -4px;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--accent-teal), var(--accent-pink));
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             transition: width 0.22s ease-out;
         }
 
@@ -203,9 +224,10 @@
         .lang-switch {
             display: inline-flex;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.24);
+            border: 1px solid var(--border);
             overflow: hidden;
             font-size: 13px;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .lang-btn {
@@ -213,33 +235,41 @@
             cursor: pointer;
             background: transparent;
             border: none;
-            color: var(--text-main);
+            color: var(--text);
         }
 
         .lang-btn.active {
-            background: radial-gradient(circle at 30% 0, var(--accent-teal), var(--accent-blue));
+            background: rgba(0, 229, 255, 0.14);
+            color: var(--text);
         }
 
         .cta-top {
             padding: 10px 26px;
             border-radius: 999px;
-            border: 1px solid rgba(142, 255, 239, 0.9);
-            background: radial-gradient(circle at 0 0, #6fffe9, #2f5bff);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             box-shadow:
-                0 0 18px rgba(37, 224, 198, 0.8),
-                0 0 26px rgba(59, 130, 255, 0.7);
+                0 12px 26px rgba(0, 0, 0, 0.35);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            color: #050816;
+            color: var(--cta-text);
+            transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
         }
 
         .cta-top:hover {
-            filter: brightness(1.08);
+            transform: translateY(-1px);
+            filter: brightness(1.05);
             box-shadow:
-                0 0 22px rgba(111, 255, 233, 1),
-                0 0 32px rgba(59, 130, 255, 0.9);
+                0 16px 34px rgba(0, 0, 0, 0.48),
+                0 0 22px rgba(0, 229, 255, 0.22),
+                0 0 26px rgba(124, 58, 237, 0.18);
+        }
+
+        .cta-top:focus {
+            outline: none;
+            box-shadow: var(--focus-ring), 0 16px 34px rgba(0, 0, 0, 0.48);
         }
 
         @keyframes float {
@@ -283,19 +313,25 @@
             padding: 70px 0;
         }
 
+        .section-heading {
+            letter-spacing: 0.02em;
+        }
+
         /* ===== HERO – ТЕКСТ ВЛЯВО + ГОЛЯМ AI ORB ВДЯСНО ===== */
 
         .hero {
             display: grid;
-            grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 26px;
             align-items: center;
-            padding-top: 40px;
-            padding-bottom: 60px;
+            justify-items: center;
+            padding-top: 32px;
+            padding-bottom: 54px;
         }
 
         .hero-text {
-            text-align: left;
+            text-align: center;
+            max-width: 820px;
         }
 
         .hero-label {
@@ -304,12 +340,12 @@
             gap: 8px;
             padding: 6px 12px;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            background: rgba(5, 8, 22, 0.7);
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
             font-size: 12px;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            opacity: 0.88;
+            color: var(--muted);
             margin-bottom: 14px;
         }
 
@@ -317,26 +353,28 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--accent-teal);
-            box-shadow: 0 0 8px rgba(37, 224, 198, 0.9);
+            background: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
         }
 
         .hero-title {
             font-size: 52px;
             line-height: 1.1;
             margin-bottom: 12px;
+            letter-spacing: 0.01em;
         }
 
-        .hero-title span {
-            background: linear-gradient(120deg, #6fffe9, #ff8cf9, #92a0ff);
+        .hero-title .hl {
+            background: linear-gradient(120deg, var(--primary), var(--accent));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            text-shadow: 0 0 22px rgba(0, 229, 255, 0.12);
         }
 
         .hero-subtitle {
             font-size: 19px;
-            opacity: 0.84;
+            color: var(--muted);
             max-width: 650px;
             margin-bottom: 26px;
         }
@@ -346,8 +384,8 @@
             flex-wrap: wrap;
             gap: 26px;
             font-size: 15px;
-            opacity: 0.82;
-            justify-content: flex-start;
+            color: var(--muted);
+            justify-content: center;
             margin-bottom: 14px;
         }
 
@@ -370,6 +408,20 @@
             animation: none;
             perspective: 900px;
             transform-style: preserve-3d;
+            isolation: isolate;
+        }
+
+        .hero-orb-big::before {
+            content: "";
+            position: absolute;
+            inset: -34px;
+            background:
+                radial-gradient(circle at 30% 25%, rgba(0, 229, 255, 0.22), transparent 55%),
+                radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.18), transparent 60%);
+            filter: blur(10px);
+            opacity: 0.95;
+            z-index: -1;
+            transform: translateZ(0);
         }
 
         .hero-orb-core {
@@ -377,8 +429,10 @@
             height: 100%;
             border-radius: 50%;
             background: url('ai-orb.png') center/cover no-repeat;
-            animation: heroCoreSpin 20s linear infinite;
-            box-shadow: 0 0 40px rgba(111, 255, 233, 0.67);
+            animation: heroCoreSpin 36s linear infinite;
+            box-shadow:
+                0 18px 40px rgba(0,0,0,0.55),
+                0 0 22px rgba(0, 229, 255, 0.18);
             transform: translateZ(0);
             backface-visibility: visible;
         }
@@ -387,10 +441,10 @@
             position: absolute;
             inset: 18px;
             border-radius: 50%;
-            border: 2px solid rgba(111, 255, 233, 0.67);
-            border-top-color: #ff8cf9;
+            border: 2px solid rgba(255, 255, 255, 0.14);
+            border-top-color: rgba(0, 229, 255, 0.85);
             transform: rotateX(70deg);
-            animation: heroRingSpin 12s linear infinite;
+            animation: heroRingSpin 18s linear infinite;
             pointer-events: none;
             backface-visibility: visible;
         }
@@ -408,7 +462,7 @@
         .hero-orb-caption {
             margin-top: 10px;
             font-size: 14px;
-            opacity: 0.85;
+            color: var(--muted);
         }
 
         /* ===== СЕКЦИИ / КАРТИ ===== */
@@ -420,7 +474,7 @@
 
         .section-sub {
             font-size: 16px;
-            opacity: 0.8;
+            color: var(--color-muted);
             max-width: 620px;
             margin-bottom: 26px;
         }
@@ -434,12 +488,23 @@
         .card {
             position: relative;
             padding: 20px;
-            border-radius: 18px;
-            background: radial-gradient(circle at 0 0, rgba(111, 255, 233, 0.10), rgba(8, 18, 52, 0.95));
-            border: 1px solid rgba(142, 227, 255, 0.45);
-            box-shadow: 0 0 18px rgba(69, 155, 255, 0.5);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
             font-size: 16px;
             overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 229, 255, 0.28);
+            box-shadow:
+                var(--shadow),
+                0 0 0 1px rgba(0, 229, 255, 0.12),
+                0 0 26px rgba(0, 229, 255, 0.12);
         }
 
         .card h3 {
@@ -449,7 +514,7 @@
 
         .tagline {
             font-size: 14px;
-            opacity: 0.8;
+            color: var(--muted);
             margin-top: 10px;
         }
 
@@ -473,7 +538,7 @@
 
         .list li::before {
             content: "•";
-            color: #6fffe9;
+            color: var(--primary);
         }
 
         .step {
@@ -504,7 +569,7 @@
 
         label {
             font-size: 14px;
-            opacity: 0.85;
+            color: var(--color-muted);
         }
 
         input,
@@ -513,10 +578,49 @@
             padding: 9px 11px;
             margin-top: 4px;
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(5, 8, 22, 0.8);
-            color: #f5f7ff;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text);
             font-size: 15px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(148, 163, 184, 0.85);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(0, 229, 255, 0.45);
+            box-shadow: var(--focus-ring);
+        }
+
+        .btn-primary {
+            width: fit-content;
+            justify-self: start;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--cta-text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.05);
+            box-shadow:
+                0 14px 32px rgba(0, 0, 0, 0.45),
+                0 0 22px rgba(0, 229, 255, 0.20),
+                0 0 26px rgba(124, 58, 237, 0.18);
+        }
+
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: var(--focus-ring), 0 14px 32px rgba(0, 0, 0, 0.45);
         }
 
         textarea {
@@ -526,7 +630,7 @@
 
         .contact-info {
             font-size: 15px;
-            opacity: 0.85;
+            color: var(--color-muted);
         }
 
         .contact-info p {
@@ -534,10 +638,10 @@
         }
 
         footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             padding: 18px;
             font-size: 12px;
-            opacity: 0.75;
+            color: var(--muted);
             text-align: center;
         }
 
@@ -550,8 +654,10 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: radial-gradient(circle at 20% 0, #6fffe9, #2f5bff);
-            box-shadow: 0 0 24px rgba(111, 255, 233, 0.9);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.48),
+                0 0 22px rgba(0, 229, 255, 0.18);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -561,7 +667,7 @@
 
         .chatbot-launcher span {
             font-size: 26px;
-            color: #050816;
+            color: var(--cta-text);
         }
 
         .chatbot-window {
@@ -571,9 +677,10 @@
             width: 320px;
             max-height: 430px;
             border-radius: 18px;
-            background: radial-gradient(circle at 0 0, rgba(111, 255, 233, 0.15), rgba(8, 18, 52, 0.98));
-            border: 1px solid rgba(150, 227, 255, 0.6);
-            box-shadow: 0 0 22px rgba(69, 155, 255, 0.85);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -586,11 +693,12 @@
 
         .chatbot-header {
             padding: 10px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 12px;
+            color: var(--text);
         }
 
         .chatbot-header-title {
@@ -610,6 +718,7 @@
         .chatbot-close {
             cursor: pointer;
             font-size: 18px;
+            color: var(--muted);
         }
 
         .chatbot-body {
@@ -630,21 +739,24 @@
 
         .chat-msg.bot {
             align-self: flex-start;
-            background: rgba(5, 8, 22, 0.9);
-            border: 1px solid rgba(142, 227, 255, 0.6);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text);
         }
 
         .chat-msg.user {
             align-self: flex-end;
-            background: rgba(111, 255, 233, 0.16);
-            border: 1px solid rgba(111, 255, 233, 0.7);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.14), rgba(124, 58, 237, 0.12));
+            border: 1px solid rgba(0, 229, 255, 0.22);
+            color: var(--text);
         }
 
         .chatbot-input-area {
             padding: 8px;
             display: flex;
             gap: 6px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .chatbot-input-area input {
@@ -655,11 +767,11 @@
         .chatbot-input-area button {
             padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(111, 255, 233, 0.8);
-            background: radial-gradient(circle at 0 0, #6fffe9, #2f5bff);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             cursor: pointer;
             font-size: 12px;
-            color: #050816;
+            color: var(--cta-text);
         }
 
         /* ===== RESPONSIVE ===== */
@@ -673,6 +785,13 @@
                 width: 100%;
                 justify-content: center;
                 margin-top: 6px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-links {
+                gap: 16px;
+                font-size: 15px;
             }
         }
 
@@ -725,6 +844,7 @@
             </div>
 
             <nav class="nav-links">
+                <a href="#ai" data-i18n="nav-ai">Какво е ИИ</a>
                 <a href="#services" data-i18n="nav-services">Услуги</a>
                 <a href="#industries" data-i18n="nav-industries">За кого</a>
                 <a href="#how" data-i18n="nav-how">Как работи</a>
@@ -755,7 +875,7 @@
                 </div>
 
                 <h1 class="hero-title" data-i18n="hero-title">
-                    Автоматизиран <span>AI свят</span> за вашите процеси
+                    <span class="hl">AI</span> <span class="hl">автоматизация</span> за <span class="hl">интелигентни</span> процеси
                 </h1>
 
                 <p class="hero-subtitle" data-i18n="hero-subtitle">
@@ -784,6 +904,79 @@
                 <div class="hero-orb-ring" aria-hidden="true"></div>
                 <div class="hero-orb-caption" data-i18n="hero-orb-caption">
                     Кликни тук – това е AI чатботът на AUTOMEXA AI.
+                </div>
+            </div>
+        </section>
+
+        <!-- КАКВО Е ИИ -->
+        <section id="ai">
+            <div class="two-col">
+                <div>
+                    <h2 class="section-heading" data-i18n="ai101-title">Какво е ИИ (изкуствен интелект)?</h2>
+                    <p class="section-sub" data-i18n="ai101-sub">
+                        Ако темата ви звучи сложна или "страшна", не сте сами. В бизнеса ИИ не е робот, който "замества хора",
+                        а инструмент, който помага на екипите да работят по-бързо, по-точно и с по-малко напрежение.
+                    </p>
+
+                    <p data-i18n="ai101-p1">
+                        Изкуственият интелект е софтуер, който разпознава модели в данни (текст, числа, изображения) и може да
+                        подпомага решения или да изпълнява конкретни задачи – например да отговаря на въпроси, да класифицира документи
+                        или да сигнализира за риск. В практиката най-често става дума за "тесен" ИИ: много добър в една конкретна работа,
+                        но не и "разум" като във филмите.
+                    </p>
+
+                    <p data-i18n="ai101-p2">
+                        Най-важното: ИИ работи най-добре, когато има ясни правила, човешки контрол и измерими цели. Затова внедряването
+                        в бизнеса е процес – започва се с пилот, измерва се ефектът и чак тогава се разширява.
+                    </p>
+
+                    <h3 style="margin-top:14px; font-size:19px;" data-i18n="ai101-uses-title">За какво се използва ИИ в бизнеса?</h3>
+                    <ul class="list" style="margin-top:8px;">
+                        <li data-i18n="ai101-use-1">Обслужване на клиенти: чатботи за FAQ, заявки, статуси, насочване към правилния отдел</li>
+                        <li data-i18n="ai101-use-2">Документи: извличане на данни от фактури/договори, класификация, проверка за липси</li>
+                        <li data-i18n="ai101-use-3">Операции: автоматизация на повтаряеми действия в ERP/CRM (RPA + AI)</li>
+                        <li data-i18n="ai101-use-4">Анализи: прогнози за търсене/натоварване, откриване на аномалии и грешки</li>
+                        <li data-i18n="ai101-use-5">Качество и сигурност: видеоаналитика, ранни предупреждения, контрол в реално време</li>
+                    </ul>
+
+                    <button class="btn-primary" style="margin-top:14px;"
+                            onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+                            data-i18n="ai101-cta">
+                        Вижте къде ИИ ще помогне при вас
+                    </button>
+                </div>
+
+                <div>
+                    <div class="card" style="margin-bottom:14px;">
+                        <h3 data-i18n="ai101-fears-title">Страхове vs. реалност</h3>
+                        <ul class="list" style="margin-top:10px;">
+                            <li data-i18n="ai101-fear-1">"Ще ни вземе работата" → ИИ най-често поема рутината; хората остават за контрол, връзка с клиенти и решения</li>
+                            <li data-i18n="ai101-fear-2">"Ще прави грешки" → затова има правила, ограничения и човешко одобрение за критични стъпки</li>
+                            <li data-i18n="ai101-fear-3">"Нямаме данни" → може да се започне с малки процеси и постепенно да се подобрява качеството на данните</li>
+                            <li data-i18n="ai101-fear-4">"Скъпо е" → пилотният проект показва реалната възвръщаемост преди мащабиране</li>
+                        </ul>
+                        <p class="tagline" data-i18n="ai101-fears-tag">Целта е по-силен екип, не по-малък екип.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 data-i18n="ai101-start-title">Как да започнете безопасно (практично)</h3>
+                        <div class="step" style="margin-top:10px;">
+                            <div class="step-title" data-i18n="ai101-start-1-title">1) Изберете 1 процес с много рутина</div>
+                            <div class="step-body" data-i18n="ai101-start-1-body">Например входящи имейли, фактури, заявки, отчетност или първо ниво клиентска поддръжка.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-title" data-i18n="ai101-start-2-title">2) Задайте правила и граници</div>
+                            <div class="step-body" data-i18n="ai101-start-2-body">Кога ИИ има право да действа сам и кога задължително пита човек за одобрение.</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-title" data-i18n="ai101-start-3-title">3) Мерете резултата</div>
+                            <div class="step-body" data-i18n="ai101-start-3-body">Време за обработка, грешки, удовлетвореност, разходи – ако няма метрика, няма и контрол.</div>
+                        </div>
+                        <div class="step" style="margin-bottom:0;">
+                            <div class="step-title" data-i18n="ai101-start-4-title">4) Разширете само ако има ефект</div>
+                            <div class="step-body" data-i18n="ai101-start-4-body">След успешен пилот автоматизацията се мащабира към още процеси и отдели.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1039,19 +1232,49 @@
         bg: {
             "logo-main": "AUTOMEXA AI",
             "logo-sub": "Автоматизиран свят за вашия бизнес",
+            "nav-ai": "Какво е ИИ",
             "nav-services": "Услуги",
             "nav-industries": "За кого",
             "nav-how": "Как работи",
             "nav-contact": "Контакти",
             "nav-audit": "Безплатен AI одит",
             "hero-label": "AI Автоматизация • Следващо ниво",
-            "hero-title": "Автоматизиран <span>AI свят</span> за вашите процеси",
+            "hero-title": "<span class=\"hl\">AI</span> <span class=\"hl\">автоматизация</span> за <span class=\"hl\">интелигентни</span> процеси",
             "hero-subtitle":
                 "AUTOMEXA AI изгражда интелигентни системи, които поемат повтарящите се задачи, намаляват човешките грешки и освобождават екипа ви за стратегическа работа.",
             "metric-1": "AI агенти без почивка",
             "metric-2": "средно по-малко оперативни разходи",
             "metric-3": "типичен период за внедряване",
             "hero-orb-caption": "Кликни тук – това е AI чатботът на AUTOMEXA AI.",
+            "ai101-title": "Какво е ИИ (изкуствен интелект)?",
+            "ai101-sub":
+                "Ако темата ви звучи сложна или \"страшна\", не сте сами. В бизнеса ИИ не е робот, който \"замества хора\", а инструмент, който помага на екипите да работят по-бързо, по-точно и с по-малко напрежение.",
+            "ai101-p1":
+                "Изкуственият интелект е софтуер, който разпознава модели в данни (текст, числа, изображения) и може да подпомага решения или да изпълнява конкретни задачи – например да отговаря на въпроси, да класифицира документи или да сигнализира за риск. В практиката най-често става дума за \"тесен\" ИИ: много добър в една конкретна работа, но не и \"разум\" като във филмите.",
+            "ai101-p2":
+                "Най-важното: ИИ работи най-добре, когато има ясни правила, човешки контрол и измерими цели. Затова внедряването в бизнеса е процес – започва се с пилот, измерва се ефектът и чак тогава се разширява.",
+            "ai101-uses-title": "За какво се използва ИИ в бизнеса?",
+            "ai101-use-1": "Обслужване на клиенти: чатботи за FAQ, заявки, статуси, насочване към правилния отдел",
+            "ai101-use-2": "Документи: извличане на данни от фактури/договори, класификация, проверка за липси",
+            "ai101-use-3": "Операции: автоматизация на повтаряеми действия в ERP/CRM (RPA + AI)",
+            "ai101-use-4": "Анализи: прогнози за търсене/натоварване, откриване на аномалии и грешки",
+            "ai101-use-5": "Качество и сигурност: видеоаналитика, ранни предупреждения, контрол в реално време",
+            "ai101-cta": "Вижте къде ИИ ще помогне при вас",
+            "ai101-fears-title": "Страхове vs. реалност",
+            "ai101-fear-1": "\"Ще ни вземе работата\" → ИИ най-често поема рутината; хората остават за контрол, връзка с клиенти и решения",
+            "ai101-fear-2": "\"Ще прави грешки\" → затова има правила, ограничения и човешко одобрение за критични стъпки",
+            "ai101-fear-3": "\"Нямаме данни\" → може да се започне с малки процеси и постепенно да се подобрява качеството на данните",
+            "ai101-fear-4": "\"Скъпо е\" → пилотният проект показва реалната възвръщаемост преди мащабиране",
+            "ai101-fears-tag": "Целта е по-силен екип, не по-малък екип.",
+            "ai101-start-title": "Как да започнете безопасно (практично)",
+            "ai101-start-1-title": "1) Изберете 1 процес с много рутина",
+            "ai101-start-1-body": "Например входящи имейли, фактури, заявки, отчетност или първо ниво клиентска поддръжка.",
+            "ai101-start-2-title": "2) Задайте правила и граници",
+            "ai101-start-2-body": "Кога ИИ има право да действа сам и кога задължително пита човек за одобрение.",
+            "ai101-start-3-title": "3) Мерете резултата",
+            "ai101-start-3-body": "Време за обработка, грешки, удовлетвореност, разходи – ако няма метрика, няма и контрол.",
+            "ai101-start-4-title": "4) Разширете само ако има ефект",
+            "ai101-start-4-body": "След успешен пилот автоматизацията се мащабира към още процеси и отдели.",
             "services-title": "AI услуги и решения",
             "services-sub":
                 "Изграждаме персонализирани AI автоматизации за фирми и институции – от чатботи и документооборот до интеграция с ERP/CRM и видеоанализ.",
@@ -1144,19 +1367,49 @@
         en: {
             "logo-main": "AUTOMEXA AI",
             "logo-sub": "An automated world for your business",
+            "nav-ai": "What is AI",
             "nav-services": "Services",
             "nav-industries": "Who it's for",
             "nav-how": "How it works",
             "nav-contact": "Contact",
             "nav-audit": "Free AI audit",
             "hero-label": "AI Automation • Next level",
-            "hero-title": "Automated <span>AI world</span> for your workflows",
+            "hero-title": "<span class=\"hl\">AI</span> <span class=\"hl\">Automation</span> for <span class=\"hl\">Intelligent</span> workflows",
             "hero-subtitle":
                 "AUTOMEXA AI builds intelligent systems that take over repetitive tasks, reduce human error and free your team for strategic work.",
             "metric-1": "AI agents with no downtime",
             "metric-2": "average reduction in operational costs",
             "metric-3": "typical deployment period",
             "hero-orb-caption": "Click here – this is the AUTOMEXA AI chatbot.",
+            "ai101-title": "What is AI (Artificial Intelligence)?",
+            "ai101-sub":
+                "If AI feels complicated or even a bit scary, you're not alone. In business, AI is not a robot that replaces people—it is a tool that helps teams work faster, with fewer errors and less pressure.",
+            "ai101-p1":
+                "Artificial intelligence is software that finds patterns in data (text, numbers, images) and can support decisions or perform specific tasks—such as answering questions, classifying documents or flagging risks. In practice, most business AI is \"narrow\" AI: excellent at one job, not a human-like mind from the movies.",
+            "ai101-p2":
+                "Most importantly, AI works best with clear rules, human oversight and measurable goals. That's why adoption is a process: start with a pilot, measure impact, and only then scale.",
+            "ai101-uses-title": "What is AI used for in business?",
+            "ai101-use-1": "Customer support: FAQ chatbots, requests, status updates, routing to the right team",
+            "ai101-use-2": "Documents: extracting data from invoices/contracts, classification, missing-field checks",
+            "ai101-use-3": "Operations: automating repetitive actions in ERP/CRM (RPA + AI)",
+            "ai101-use-4": "Analytics: demand/workload forecasts, anomaly detection and error spotting",
+            "ai101-use-5": "Quality & security: video analytics, early warnings, real-time monitoring",
+            "ai101-cta": "See where AI can help you",
+            "ai101-fears-title": "Fears vs reality",
+            "ai101-fear-1": "\"It will take our jobs\" → AI usually takes routine tasks; people stay for control, customer relationships and decisions",
+            "ai101-fear-2": "\"It will make mistakes\" → that's why you set rules, limits and human approval for critical steps",
+            "ai101-fear-3": "\"We don't have data\" → you can start small and improve data quality step by step",
+            "ai101-fear-4": "\"It's expensive\" → a pilot proves ROI before you scale",
+            "ai101-fears-tag": "The goal is a stronger team, not a smaller one.",
+            "ai101-start-title": "How to start safely (practical)",
+            "ai101-start-1-title": "1) Pick one high-routine process",
+            "ai101-start-1-body": "For example: incoming emails, invoices, requests, reporting or first-line customer support.",
+            "ai101-start-2-title": "2) Define rules and boundaries",
+            "ai101-start-2-body": "When can AI act on its own and when must a human approve the next step.",
+            "ai101-start-3-title": "3) Measure outcomes",
+            "ai101-start-3-body": "Processing time, error rate, satisfaction, costs—no metric means no control.",
+            "ai101-start-4-title": "4) Scale only if it works",
+            "ai101-start-4-body": "After a successful pilot, expand automation to more processes and teams.",
             "services-title": "AI Services & Solutions",
             "services-sub":
                 "We build tailored AI automations for companies and institutions – from chatbots and document workflows to ERP/CRM integration and video analytics.",
@@ -1321,6 +1574,24 @@
 
     function getBotReply(text) {
         const t = text.toLowerCase();
+
+        if (
+            t.includes("какво е ии") ||
+            t.includes("какво е ai") ||
+            t.includes("изкуствен интелект") ||
+            t.includes("what is ai") ||
+            t.includes("artificial intelligence")
+        ) {
+            return currentLang === "bg"
+                ? "ИИ (изкуствен интелект) е софтуер, който разпознава модели в данни и помага да се автоматизират конкретни задачи – напр. отговори към клиенти, обработка на документи или откриване на грешки. В бизнеса целта е да поеме рутината и да остави хората за контрол и решения. Виж и секцията „Какво е ИИ“ в сайта за кратко обяснение."
+                : "AI (artificial intelligence) is software that finds patterns in data and helps automate specific tasks—like customer support, document processing or spotting errors. In business, the goal is to take routine work off your team, while people stay in control of decisions. See the “What is AI” section on the site for a short overview.";
+        }
+
+        if (t.includes("ще ми вземе работата") || t.includes("ще вземе работата") || t.includes("job") || t.includes("take my job")) {
+            return currentLang === "bg"
+                ? "Разбираемо е да има такъв страх. В практиката ИИ най-често автоматизира повтаряемите задачи (копиране, проверка, сортиране, стандартни отговори). Най-ценните дейности остават при хората: преценка, отношения с клиенти, контрол и отговорност. Ние внедряваме ИИ с правила и човешко одобрение при важни стъпки."
+                : "That concern is totally understandable. In practice, AI mostly automates repetitive work (copying, checking, sorting, standard replies). The most valuable parts stay with people: judgment, customer relationships, oversight and accountability. We implement AI with clear rules and human approval for critical steps.";
+        }
 
         if (t.includes("цена") || t.includes("колко струва") || t.includes("стойност")) {
             return currentLang === "bg"
