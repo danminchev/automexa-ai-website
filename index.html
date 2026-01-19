@@ -180,12 +180,19 @@
 
         .nav-links {
             display: flex;
-            gap: 26px;
+            gap: 18px;
             font-size: 16px;
             flex: 1;
             justify-content: center;
-            flex-wrap: wrap;
-            row-gap: 10px;
+            flex-wrap: nowrap;
+            min-width: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            display: none;
         }
 
         .nav-links a {
@@ -788,6 +795,8 @@
                 width: 100%;
                 justify-content: center;
                 margin-top: 6px;
+                flex-wrap: wrap;
+                overflow-x: visible;
             }
         }
 

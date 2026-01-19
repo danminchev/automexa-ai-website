@@ -156,8 +156,30 @@ a {
   font-size: 16px;
   flex: 1;
   justify-content: center;
-  flex-wrap: wrap;
-  row-gap: 10px;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
 }
 
 .nav-links a {
