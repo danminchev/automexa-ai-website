@@ -1,0 +1,72 @@
+/* Futuristic AI (Neon/Dark) theme */
+
+:root {
+  --page-bg: #050B18;
+  --surface: rgba(255, 255, 255, 0.04);
+  --header-bg: rgba(5, 11, 24, 0.65);
+  --text: #E5E7EB;
+  --muted: #94A3B8;
+  --border: rgba(255, 255, 255, 0.10);
+  --primary: #00E5FF;
+  --accent: #7C3AED;
+  --cta-text: #061018;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+
+  /* Optional back-compat tokens (useful across pages) */
+  --bg-main: var(--page-bg);
+  --text-main: var(--text);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 15%, rgba(0, 229, 255, 0.12) 0, transparent 55%),
+    radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.14) 0, transparent 55%),
+    radial-gradient(circle at 55% 92%, rgba(0, 229, 255, 0.08) 0, transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 35%),
+    var(--page-bg);
+}
+
+/* Header glass effect */
+header {
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* CTA neon gradient + hover */
+.cta-top {
+  color: var(--cta-text);
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 10px 28px rgba(0, 229, 255, 0.16),
+    0 10px 28px rgba(124, 58, 237, 0.14);
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.cta-top:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06) saturate(1.08);
+  box-shadow:
+    0 14px 36px rgba(0, 229, 255, 0.22),
+    0 14px 36px rgba(124, 58, 237, 0.18);
+}
+
+/* Cards / surfaces */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
