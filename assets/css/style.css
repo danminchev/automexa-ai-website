@@ -70,3 +70,36 @@ header {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+
+/* Active menu state */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a.active {
+  color: var(--text);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  box-shadow:
+    0 0 10px rgba(0, 229, 255, 0.35),
+    0 0 12px rgba(124, 58, 237, 0.25);
+  opacity: 0.9;
+}
+
+/* Optional: show active state for CTA too (used on audit.html) */
+.cta-top.active {
+  box-shadow:
+    0 0 0 3px rgba(0, 229, 255, 0.18),
+    0 0 0 6px rgba(124, 58, 237, 0.12),
+    0 14px 36px rgba(0, 229, 255, 0.22),
+    0 14px 36px rgba(124, 58, 237, 0.18);
+}
