@@ -51,6 +51,61 @@
 
     <main>
         <h1>Контакти</h1>
+
+        <p style="color: var(--muted); max-width: 90ch;">
+            Свържете се с нас за въпроси, партньорства или заявка за AI автоматизация.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 14px;">
+            <section class="card" style="padding: 16px; border-radius: 16px;" aria-labelledby="contact-info">
+                <h2 id="contact-info">Директен контакт</h2>
+                <p>
+                    <strong>Имейл:</strong>
+                    <a href="mailto:office@automexa.ai" style="color: var(--primary);">office@automexa.ai</a>
+                </p>
+                <p>
+                    <strong>Телефон:</strong>
+                    <a href="tel:+359888000000" style="color: var(--primary);">+359 888 000 000</a>
+                </p>
+
+                <h3 style="margin-top: 14px;">Локации</h3>
+                <p style="color: var(--muted);">Варна офис (примерно)</p>
+                <p style="color: var(--muted);">София (срещи с предварителна уговорка)</p>
+            </section>
+
+            <section class="card" style="padding: 16px; border-radius: 16px;" aria-labelledby="contact-form">
+                <h2 id="contact-form">Форма за контакт</h2>
+
+                <form method="POST" style="margin-top: 10px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+                        <div>
+                            <label for="name"><strong>Име</strong></label><br />
+                            <input id="name" name="name" type="text" autocomplete="name" required
+                                   style="width: 100%; margin-top: 6px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text);" />
+                        </div>
+
+                        <div>
+                            <label for="email"><strong>Имейл</strong></label><br />
+                            <input id="email" name="email" type="email" autocomplete="email" required
+                                   style="width: 100%; margin-top: 6px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text);" />
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <label for="message"><strong>Съобщение</strong></label><br />
+                        <textarea id="message" name="message" rows="5" required
+                                  placeholder="Напишете с какво можем да помогнем..."
+                                  style="width: 100%; margin-top: 6px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text); resize: vertical;"></textarea>
+                    </div>
+
+                    <div style="margin-top: 14px;">
+                        <button type="submit" class="cta-top" style="padding: 12px 16px; border-radius: 14px; cursor: pointer;">
+                            Изпрати
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
     </main>
 
     <footer>
