@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8" />
+    <title>AUTOMEXA AI – Автоматизиран свят за вашия бизнес</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-main: #040513;
+            --accent-teal: #25e0c6;
+            --accent-blue: #3b82ff;
+            --accent-pink: #ff3af5;
+            --text-main: #f5f7ff;
+        }
+
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 0% 0%, #25e0c644 0, transparent 45%),
+                radial-gradient(circle at 100% 90%, #ff3af544 0, transparent 50%),
+                radial-gradient(circle at 15% 80%, #3b82ff33 0, transparent 45%),
+                #040513;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-size: 16px; /* по-голям базов шрифт */
+            line-height: 1.7;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .grid3d {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.4;
+            transform-origin: center top;
+            transform: perspective(900px) rotateX(62deg) translateY(-120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            background: linear-gradient(90deg, #040513ee, #05071bee);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 26px;
+        }
+
+        /* ===== ЛОГО С МОЗЪК + ГРАДИЕНТЕН ТЕКСТ ===== */
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-orb {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 0, #6fffe9, #2f5bff);
+            box-shadow:
+                0 0 26px rgba(116, 255, 240, 0.9),
+                0 0 46px rgba(59, 130, 255, 0.9);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            animation: spinOrb 18s linear infinite;
+        }
+
+        .brain-img {
+            position: absolute;
+            inset: 8%;
+            width: 84%;
+            height: 84%;
+            object-fit: cover;
+            filter: drop-shadow(0 0 10px rgba(120, 255, 240, 0.9));
+        }
+
+        .orb {
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            mix-blend-mode: screen;
+        }
+
+        .orb-1 {
+            border-top-color: rgba(111, 255, 233, 0.9);
+            border-right-color: rgba(59, 130, 255, 0.9);
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            transform: rotateX(72deg);
+            animation: ringSpin1 10s linear infinite;
+        }
+
+        .orb-2 {
+            border-bottom-color: rgba(255, 58, 245, 0.9);
+            border-left-color: rgba(59, 130, 255, 0.9);
+            border-top-color: transparent;
+            border-right-color: transparent;
+            transform: rotateX(108deg);
+            animation: ringSpin2 14s linear infinite;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo-title {
+            font-family: "Orbitron", system-ui;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            font-size: 18px;
+            text-transform: uppercase;
+            background: linear-gradient(120deg, #6fffe9, #ff8cf9, #92a0ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+
+        /* ===== НАВ ЛИНКОВЕ В СРЕДАТА ===== */
+
+        .nav-links {
+            display: flex;
+            gap: 34px;
+            font-size: 17px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            position: relative;
+            padding-bottom: 2px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-pink));
+            transition: width 0.22s ease-out;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lang-switch {
+            display: inline-flex;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .lang-btn {
+            padding: 5px 12px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+        }
+
+        .lang-btn.active {
+            background: radial-gradient(circle at 30% 0, var(--accent-teal), var(--accent-blue));
+        }
+
+        .cta-top {
+            padding: 10px 26px;
+            border-radius: 999px;
+            border: 1px solid rgba(142, 255, 239, 0.9);
+            background: radial-gradient(circle at 0 0, #6fffe9, #2f5bff);
+            box-shadow:
+                0 0 18px rgba(37, 224, 198, 0.8),
+                0 0 26px rgba(59, 130, 255, 0.7);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            color: #050816;
+        }
+
+        .cta-top:hover {
+            filter: brightness(1.08);
+            box-shadow:
+                0 0 22px rgba(111, 255, 233, 1),
+                0 0 32px rgba(59, 130, 255, 0.9);
+        }
+
+        @keyframes spinOrb {
+            from {
+                transform: rotateY(0deg) rotateX(18deg);
+            }
+            to {
+                transform: rotateY(360deg) rotateX(18deg);
+            }
+        }
+
+        @keyframes ringSpin1 {
+            from { transform: rotateX(72deg) rotateZ(0deg); }
+            to   { transform: rotateX(72deg) rotateZ(360deg); }
+        }
+
+        @keyframes ringSpin2 {
+            from { transform: rotateX(108deg) rotateZ(0deg); }
+            to   { transform: rotateX(108deg) rotateZ(360deg); }
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 40px 18px 80px 18px;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        /* ===== HERO – ТЕКСТ ВЛЯВО + ГОЛЯМ AI ORB ВДЯСНО ===== */
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+            gap: 40px;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(5, 8, 22, 0.7);
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            opacity: 0.88;
+            margin-bottom: 14px;
+        }
+
+        .hero-label-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-teal);
+            box-shadow: 0 0 8px rgba(37, 224, 198, 0.9);
+        }
+
+        .hero-title {
+            font-size: 52px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(120deg, #6fffe9, #ff8cf9, #92a0ff);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 19px;
+            opacity: 0.84;
+            max-width: 650px;
+            margin-bottom: 26px;
+        }
+
+        .hero-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 26px;
+            font-size: 15px;
+            opacity: 0.82;
+            justify-content: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 600;
+            display: block;
+        }
+
+        .hero-orb-big {
+            width: 520px;
+            max-width: 100%;
+            cursor: pointer; /* да личи, че е кликаемо */
+            text-align: center;
+        }
+
+     /* === ГОЛЯМ 3D ORB С РОБОТА === */
+
+.hero-orb-big {
+    width: 520px;
+    max-width: 100%;
+    cursor: pointer;          /* клик → чатбот */
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+    perspective: 1200px;      /* дава 3D усещане */
+}
+
+/* светещ пръстен около сферата */
+.hero-orb-big::before {
+    content: "";
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    border: 1px solid rgba(111, 255, 233, 0.6);
+    box-shadow:
+        0 0 20px rgba(111, 255, 233, 0.8),
+        0 0 35px rgba(59, 130, 255, 0.7);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    animation: haloSpin 18s linear infinite;
+}
+
+/* самото изображение на робота */
+.hero-orb-big img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 0 30px rgba(111, 255, 233, 0.9));
+    transform-origin: 50% 60%;       /* малко под кръста – да изглежда като жив */
+    animation: robot3D 14s ease-in-out infinite;
+}
+
+/* малък надпис под орба, ако го ползваш */
+.hero-orb-caption {
+    margin-top: 10px;
+    font-size: 16px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* === АНИМАЦИИ === */
+
+/* орбът светва и около него се върти „енергиен“ пръстен */
+@keyframes haloSpin {
+    0% {
+        transform: rotateX(70deg) rotateZ(0deg);
+        opacity: 0.85;
+    }
+    50% {
+        transform: rotateX(70deg) rotateZ(180deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotateX(70deg) rotateZ(360deg);
+        opacity: 0.9;
+    }
+}
+
+/* самият робот – лек 3D наклон + въртене, все едно работи */
+@keyframes robot3D {
+    0% {
+        transform: rotateX(12deg) rotateY(-14deg) rotateZ(0deg) translateY(0px);
+    }
+    20% {
+        transform: rotateX(14deg) rotateY(4deg) rotateZ(5deg) translateY(-6px);
+    }
+    40% {
+        transform: rotateX(10deg) rotateY(12deg) rotateZ(-4deg) translateY(-10px);
+    }
+    60% {
+        transform: rotateX(13deg) rotateY(-6deg) rotateZ(3deg) translateY(-4px);
+    }
+    80% {
+        transform: rotateX(11deg) rotateY(8deg) rotateZ(-3deg) translateY(-8px);
+    }
+    100% {
+        transform: rotateX(12deg) rotateY(-14deg) rotateZ(360deg) translateY(0px);
+    }
+}
+
+
+        .hero-orb-caption {
+            margin-top: 10px;
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        /* ===== СЕКЦИИ / КАРТИ ===== */
+
+        .section-heading {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            font-size: 16px;
+            opacity: 0.8;
+            max-width: 620px;
+            margin-bottom: 26px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+            padding: 20px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 0 0, rgba(111, 255, 233, 0.10), rgba(8, 18, 52, 0.95));
+            border: 1px solid rgba(142, 227, 255, 0.45);
+            box-shadow: 0 0 18px rgba(69, 155, 255, 0.5);
+            font-size: 16px;
+            overflow: hidden;
+        }
+
+        .card h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 30px;
+        }
+
+        .list {
+            list-style: none;
+            font-size: 16px;
+        }
+
+        .list li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .list li::before {
+            content: "•";
+            color: #6fffe9;
+        }
+
+        .step {
+            margin-bottom: 14px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .step-body {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 30px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 9px 11px;
+            margin-top: 4px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(5, 8, 22, 0.8);
+            color: #f5f7ff;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .contact-info p {
+            margin-bottom: 6px;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 18px;
+            font-size: 12px;
+            opacity: 0.75;
+            text-align: center;
+        }
+
+        /* ===== ЧАТБОТ ===== */
+
+        .chatbot-launcher {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 20% 0, #6fffe9, #2f5bff);
+            box-shadow: 0 0 24px rgba(111, 255, 233, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+        }
+
+        .chatbot-launcher span {
+            font-size: 26px;
+            color: #050816;
+        }
+
+        .chatbot-window {
+            position: fixed;
+            right: 22px;
+            bottom: 90px;
+            width: 320px;
+            max-height: 430px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 0 0, rgba(111, 255, 233, 0.15), rgba(8, 18, 52, 0.98));
+            border: 1px solid rgba(150, 227, 255, 0.6);
+            box-shadow: 0 0 22px rgba(69, 155, 255, 0.85);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 20;
+        }
+
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        .chatbot-header {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .chatbot-header-title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-header-title span:first-child {
+            font-weight: 600;
+        }
+
+        .chatbot-header-title span:last-child {
+            opacity: 0.78;
+            font-size: 11px;
+        }
+
+        .chatbot-close {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .chatbot-body {
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 12px;
+            overflow-y: auto;
+        }
+
+        .chat-msg {
+            padding: 8px 10px;
+            border-radius: 12px;
+            max-width: 92%;
+        }
+
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: rgba(5, 8, 22, 0.9);
+            border: 1px solid rgba(142, 227, 255, 0.6);
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: rgba(111, 255, 233, 0.16);
+            border: 1px solid rgba(111, 255, 233, 0.7);
+        }
+
+        .chatbot-input-area {
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .chatbot-input-area input {
+            flex: 1;
+            font-size: 12px;
+        }
+
+        .chatbot-input-area button {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(111, 255, 233, 0.8);
+            background: radial-gradient(circle at 0 0, #6fffe9, #2f5bff);
+            cursor: pointer;
+            font-size: 12px;
+            color: #050816;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        @media (max-width: 960px) {
+            .nav {
+                flex-wrap: wrap;
+            }
+            .nav-links {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 6px;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text {
+                text-align: center;
+            }
+            .hero-metrics {
+                justify-content: center;
+            }
+            .two-col,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .hero-title {
+                font-size: 36px;
+            }
+            .chatbot-window {
+                right: 10px;
+                width: calc(100% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="grid3d"></div>
+
+<div class="page">
+    <header>
+        <div class="nav">
+            <div class="nav-left">
+                <div class="logo-wrapper">
+                    <div class="logo-orb">
+                        <img src="brain-logo.png" alt="Automexa AI" class="brain-img" />
+                        <div class="orb orb-1"></div>
+                        <div class="orb orb-2"></div>
+                    </div>
+                    <div class="logo-text">
+                        <div class="logo-title" data-i18n="logo-main">AUTOMEXA AI</div>
+                        <div class="logo-sub" data-i18n="logo-sub">Автоматизиран свят за вашия бизнес</div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#services" data-i18n="nav-services">Услуги</a>
+                <a href="#industries" data-i18n="nav-industries">За кого</a>
+                <a href="#how" data-i18n="nav-how">Как работи</a>
+                <a href="#contact" data-i18n="nav-contact">Контакти</a>
+            </nav>
+
+            <div class="nav-right">
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="bg">BG</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="cta-top"
+                        onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
+                        data-i18n="nav-audit">
+                    Безплатен AI одит
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <div class="hero-label">
+                    <span class="hero-label-dot"></span>
+                    <span data-i18n="hero-label">AI Автоматизация • Следващо ниво</span>
+                </div>
+
+                <h1 class="hero-title" data-i18n="hero-title">
+                    Автоматизиран <span>AI свят</span> за вашите процеси
+                </h1>
+
+                <p class="hero-subtitle" data-i18n="hero-subtitle">
+                    AUTOMEXA AI изгражда интелигентни системи, които поемат повтарящите се задачи,
+                    намаляват човешките грешки и освобождават екипа ви за стратегическа работа.
+                </p>
+
+                <div class="hero-metrics">
+                    <div>
+                        <span class="metric-value">24/7</span>
+                        <span data-i18n="metric-1">AI агенти без почивка</span>
+                    </div>
+                    <div>
+                        <span class="metric-value">-40%</span>
+                        <span data-i18n="metric-2">средно по-малко оперативни разходи</span>
+                    </div>
+                    <div>
+                        <span class="metric-value">3&nbsp;мес.</span>
+                        <span data-i18n="metric-3">типичен период за внедряване</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-orb-big" id="hero-orb">
+                <img src="ai-orb.png" alt="AI ORB" />
+                <div class="hero-orb-caption" data-i18n="hero-orb-caption">
+                    Кликни тук – това е AI чатботът на AUTOMEXA AI.
+                </div>
+            </div>
+        </section>
+
+        <!-- УСЛУГИ -->
+        <section id="services">
+            <h2 class="section-heading" data-i18n="services-title">AI услуги и решения</h2>
+            <p class="section-sub" data-i18n="services-sub">
+                Изграждаме персонализирани AI автоматизации за фирми и институции – от чатботи и
+                документооборот до интеграция с ERP/CRM и видеоанализ.
+            </p>
+
+            <div class="cards-grid">
+                <article class="card">
+                    <h3 data-i18n="service-1-title">AI асистенти и чатботи</h3>
+                    <p data-i18n="service-1-body">
+                        Виртуални агенти, които обслужват клиенти, отговарят на запитвания,
+                        подпомагат служители и автоматично попълват системи и формуляри.
+                    </p>
+                    <p class="tagline" data-i18n="service-1-tag">Поддръжка 24/7 на всякакви езици.</p>
+                </article>
+
+                <article class="card">
+                    <h3 data-i18n="service-2-title">Автоматизация на документи</h3>
+                    <p data-i18n="service-2-body">
+                        Автоматично разпознаване, класифициране и обработка на фактури, договори,
+                        заявки и отчети – без ръчно въвеждане.
+                    </p>
+                    <p class="tagline" data-i18n="service-2-tag">По-малко грешки, по-бърз одит.</p>
+                </article>
+
+                <article class="card">
+                    <h3 data-i18n="service-3-title">RPA + AI процеси</h3>
+                    <p data-i18n="service-3-body">
+                        Софтуерни роботи, които изпълняват повтарящи се задачи във вашите системи –
+                        комбинирани с AI логика за вземане на решения.
+                    </p>
+                    <p class="tagline" data-i18n="service-3-tag">Интеграция със съществуващи ERP/CRM.</p>
+                </article>
+
+                <article class="card">
+                    <h3 data-i18n="service-4-title">AI анализи и прогнози</h3>
+                    <p data-i18n="service-4-body">
+                        Прогнозиране на търсене, разходи, товари и натоварване на екипа – визуализирано
+                        в интерактивни дашбордове.
+                    </p>
+                    <p class="tagline" data-i18n="service-4-tag">Вземате решения на база данни, не на интуиция.</p>
+                </article>
+
+                <article class="card">
+                    <h3 data-i18n="service-5-title">Видеоаналитика и сигурност</h3>
+                    <p data-i18n="service-5-body">
+                        AI системи за наблюдение, разпознаване на рискови ситуации, изоставени обекти,
+                        подозрително поведение и аларми в реално време.
+                    </p>
+                    <p class="tagline" data-i18n="service-5-tag">Подходящо за охрана, търговски центрове и МВР.</p>
+                </article>
+
+                <article class="card">
+                    <h3 data-i18n="service-6-title">Персонализирани AI решения</h3>
+                    <p data-i18n="service-6-body">
+                        Разработваме уникални AI модули според вашите процеси, политики и инфраструктура –
+                        без универсални шаблони.
+                    </p>
+                    <p class="tagline" data-i18n="service-6-tag">AI, настроен за вашата реалност.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ЗА КОГО -->
+        <section id="industries">
+            <div class="two-col">
+                <div>
+                    <h2 class="section-heading" data-i18n="industries-title">За кого е AUTOMEXA AI?</h2>
+                    <p class="section-sub" data-i18n="industries-sub">
+                        Работим с организации, които имат сложни процеси, високо натоварване и нужда
+                        от прецизност – там, където автоматизацията носи реална стойност.
+                    </p>
+                    <ul class="list">
+                        <li data-i18n="ind-1">Заводи и производствени предприятия</li>
+                        <li data-i18n="ind-2">Търговски вериги, магазини и e-commerce</li>
+                        <li data-i18n="ind-3">Общини, държавни и европейски институции</li>
+                        <li data-i18n="ind-4">Логистични и транспортни компании</li>
+                        <li data-i18n="ind-5">Банки, финансови и счетоводни отдели</li>
+                        <li data-i18n="ind-6">Охранителни фирми и центрове за видеонаблюдение</li>
+                        <li data-i18n="ind-7">Болници, клиники и медицински центрове</li>
+                        <li data-i18n="ind-8">Хотели, туристически агенции и HoReCa</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="card">
+                        <h3 data-i18n="industries-card-title">Бизнес ефект в числа</h3>
+                        <p style="font-size:14px; margin-bottom:10px;" data-i18n="industries-card-body">
+                            Клиентите ни докладват съкращаване на административното време с 30–60%,
+                            по-бърза обработка на заявки и по-добър контрол върху качеството.
+                        </p>
+                        <ul class="list">
+                            <li data-i18n="ind-metric-1">+20–35% по-висока продуктивност на екипа</li>
+                            <li data-i18n="ind-metric-2">-40–50% по-малко ръчни операции</li>
+                            <li data-i18n="ind-metric-3">Възвръщаемост на инвестицията в рамките на 6–12 месеца</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- КАК РАБОТИ -->
+        <section id="how">
+            <div class="two-col">
+                <div>
+                    <h2 class="section-heading" data-i18n="how-title">Как работи AUTOMEXA AI?</h2>
+                    <p class="section-sub" data-i18n="how-sub">
+                        Внедряването на AI автоматизация не е магия, а ясен процес в няколко стъпки –
+                        от одит до реални резултати на терен.
+                    </p>
+
+                    <div class="step">
+                        <div class="step-title" data-i18n="how-1-title">1. Одит и картографиране на процесите</div>
+                        <div class="step-body" data-i18n="how-1-body">
+                            Анализираме текущите ви workflows, системи и натоварване. Идентифицираме
+                            „задръстванията“ и процесите с най-голям потенциал за автоматизация.
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title" data-i18n="how-2-title">2. Дизайн на AI архитектура</div>
+                        <div class="step-body" data-i18n="how-2-body">
+                            Изготвяме диаграма на бъдещата AI система – кои агенти, ботове и интеграции ще участват
+                            и как ще се свържат с вашите съществуващи решения.
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title" data-i18n="how-3-title">3. Разработка и обучение</div>
+                        <div class="step-body" data-i18n="how-3-body">
+                            Конфигурираме AI моделите, настройваме RPA ботовете и ги обучаваме с ваши данни,
+                            политики и бизнес логика.
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title" data-i18n="how-4-title">4. Пилотна фаза и внедряване</div>
+                        <div class="step-body" data-i18n="how-4-body">
+                            Пускаме системата в контролирана среда, измерваме резултатите и след това я
+                            разширяваме към целия бизнес.
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-title" data-i18n="how-5-title">5. Поддръжка и надграждане</div>
+                        <div class="step-body" data-i18n="how-5-body">
+                            Следим AI агенти в реално време, оптимизираме процеси и добавяме нови
+                            функционалности според нуждите на бизнеса.
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h3 data-i18n="how-card-title">Резултат: автономен дигитален слой</h3>
+                        <p style="font-size:14px; margin-bottom:10px;" data-i18n="how-card-body">
+                            AUTOMEXA AI създава „дигитален екип“ от AI агенти, които изпълняват повтарящи
+                            се задачи и общуват с вашите системи вместо хората.
+                        </p>
+                        <p class="tagline" data-i18n="how-card-tag">
+                            Вашите служители се фокусират върху стратегически решения, а не върху рутинни действия.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОНТАКТИ -->
+        <section id="contact">
+            <div class="contact-grid">
+                <div>
+                    <h2 class="section-heading" data-i18n="contact-title">Свържете се с нас</h2>
+                    <p class="section-sub" data-i18n="contact-sub">
+                        Опишете накратко вашите процеси и предизвикателства. Ще подготвим безплатен
+                        AI одит и предложение за автоматизация, което може да представите пред вашите партньори.
+                    </p>
+
+                    <form onsubmit="event.preventDefault(); alert(currentLang === 'bg' ? 'Благодарим! Ще се свържем с вас скоро.' : 'Thank you! We will contact you soon.');">
+                        <div>
+                            <label data-i18n="form-name-label">Име и фамилия</label>
+                            <input type="text" required />
+                        </div>
+                        <div>
+                            <label data-i18n="form-email-label">Имейл</label>
+                            <input type="email" required />
+                        </div>
+                        <div>
+                            <label data-i18n="form-company-label">Фирма / институция</label>
+                            <input type="text" />
+                        </div>
+                        <div>
+                            <label data-i18n="form-message-label">Кои процеси искате да автоматизирате?</label>
+                            <textarea required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" data-i18n="form-submit">
+                            Изпрати запитване
+                        </button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <p><strong data-i18n="contact-direct-title">Директен контакт</strong></p>
+                    <p><span data-i18n="contact-phone-label">Телефон:</span> +359 888 000 000</p>
+                    <p><span data-i18n="contact-email-label">Имейл:</span> office@automexa.ai</p>
+                    <p><span data-i18n="contact-address-label">Адрес:</span> Варна / София (примерно)</p>
+                    <p style="margin-top:10px;" data-i18n="contact-chat">
+                        Или използвайте вградения AI асистент долу вдясно за бързи въпроси относно
+                        автоматизацията.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span data-i18n="footer-text">
+            © 2025 AUTOMEXA AI. Всички права запазени. Създадено за свят, в който процесите работят сами.
+        </span>
+    </footer>
+</div>
+
+<!-- ЧАТБОТ -->
+<div class="chatbot-launcher" id="chatbot-launcher">
+    <span>💬</span>
+</div>
+
+<div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+        <div class="chatbot-header-title">
+            <span data-i18n="chat-header-title">AutoMexa AI Асистент</span>
+            <span data-i18n="chat-header-sub">Попитайте за автоматизация на процеси</span>
+        </div>
+        <div class="chatbot-close" id="chatbot-close">×</div>
+    </div>
+    <div class="chatbot-body" id="chatbot-body">
+        <div class="chat-msg bot" data-i18n="chat-msg-welcome">
+            Здравейте! Аз съм виртуалният асистент на AUTOMEXA AI.
+            Разкажете ми накратко какви процеси искате да автоматизирате.
+        </div>
+    </div>
+    <div class="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Напишете съобщение..." />
+        <button id="chatbot-send" data-i18n="chat-send-btn">Изпрати</button>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        bg: {
+            "logo-main": "AUTOMEXA AI",
+            "logo-sub": "Автоматизиран свят за вашия бизнес",
+            "nav-services": "Услуги",
+            "nav-industries": "За кого",
+            "nav-how": "Как работи",
+            "nav-contact": "Контакти",
+            "nav-audit": "Безплатен AI одит",
+            "hero-label": "AI Автоматизация • Следващо ниво",
+            "hero-title": "Автоматизиран <span>AI свят</span> за вашите процеси",
+            "hero-subtitle":
+                "AUTOMEXA AI изгражда интелигентни системи, които поемат повтарящите се задачи, намаляват човешките грешки и освобождават екипа ви за стратегическа работа.",
+            "metric-1": "AI агенти без почивка",
+            "metric-2": "средно по-малко оперативни разходи",
+            "metric-3": "типичен период за внедряване",
+            "hero-orb-caption": "Кликни тук – това е AI чатботът на AUTOMEXA AI.",
+            "services-title": "AI услуги и решения",
+            "services-sub":
+                "Изграждаме персонализирани AI автоматизации за фирми и институции – от чатботи и документооборот до интеграция с ERP/CRM и видеоанализ.",
+            "service-1-title": "AI асистенти и чатботи",
+            "service-1-body":
+                "Виртуални агенти, които обслужват клиенти, отговарят на запитвания, подпомагат служители и автоматично попълват системи и формуляри.",
+            "service-1-tag": "Поддръжка 24/7 на всякакви езици.",
+            "service-2-title": "Автоматизация на документи",
+            "service-2-body":
+                "Автоматично разпознаване, класифициране и обработка на фактури, договори, заявки и отчети – без ръчно въвеждане.",
+            "service-2-tag": "По-малко грешки, по-бърз одит.",
+            "service-3-title": "RPA + AI процеси",
+            "service-3-body":
+                "Софтуерни роботи, които изпълняват повтарящи се задачи във вашите системи – комбинирани с AI логика за вземане на решения.",
+            "service-3-tag": "Интеграция със съществуващи ERP/CRM.",
+            "service-4-title": "AI анализи и прогнози",
+            "service-4-body":
+                "Прогнозиране на търсене, разходи, товари и натоварване на екипа – визуализирано в интерактивни дашбордове.",
+            "service-4-tag": "Вземате решения на база данни, не на интуиция.",
+            "service-5-title": "Видеоаналитика и сигурност",
+            "service-5-body":
+                "AI системи за наблюдение, разпознаване на рискови ситуации, изоставени обекти, подозрително поведение и аларми в реално време.",
+            "service-5-tag": "Подходящо за охрана, търговски центрове и МВР.",
+            "service-6-title": "Персонализирани AI решения",
+            "service-6-body":
+                "Разработваме уникални AI модули според вашите процеси, политики и инфраструктура – без универсални шаблони.",
+            "service-6-tag": "AI, настроен за вашата реалност.",
+            "industries-title": "За кого е AUTOMEXA AI?",
+            "industries-sub":
+                "Работим с организации, които имат сложни процеси, високо натоварване и нужда от прецизност – там, където автоматизацията носи реална стойност.",
+            "ind-1": "Заводи и производствени предприятия",
+            "ind-2": "Търговски вериги, магазини и e-commerce",
+            "ind-3": "Общини, държавни и европейски институции",
+            "ind-4": "Логистични и транспортни компании",
+            "ind-5": "Банки, финансови и счетоводни отдели",
+            "ind-6": "Охранителни фирми и центрове за видеонаблюдение",
+            "ind-7": "Болници, клиники и медицински центрове",
+            "ind-8": "Хотели, туристически агенции и HoReCa",
+            "industries-card-title": "Бизнес ефект в числа",
+            "industries-card-body":
+                "Клиентите ни докладват съкращаване на административното време с 30–60%, по-бърза обработка на заявки и по-добър контрол върху качеството.",
+            "ind-metric-1": "+20–35% по-висока продуктивност на екипа",
+            "ind-metric-2": "-40–50% по-малко ръчни операции",
+            "ind-metric-3": "Възвръщаемост на инвестицията в рамките на 6–12 месеца",
+            "how-title": "Как работи AUTOMEXA AI?",
+            "how-sub":
+                "Внедряването на AI автоматизация не е магия, а ясен процес в няколко стъпки – от одит до реални резултати на терен.",
+            "how-1-title": "1. Одит и картографиране на процесите",
+            "how-1-body":
+                "Анализираме текущите ви workflows, системи и натоварване. Идентифицираме „задръстванията“ и процесите с най-голям потенциал за автоматизация.",
+            "how-2-title": "2. Дизайн на AI архитектура",
+            "how-2-body":
+                "Изготвяме диаграма на бъдещата AI система – кои агенти, ботове и интеграции ще участват и как ще се свържат с вашите съществуващи решения.",
+            "how-3-title": "3. Разработка и обучение",
+            "how-3-body":
+                "Конфигурираме AI моделите, настройваме RPA ботовете и ги обучаваме с ваши данни, политики и бизнес логика.",
+            "how-4-title": "4. Пилотна фаза и внедряване",
+            "how-4-body":
+                "Пускаме системата в контролирана среда, измерваме резултатите и след това я разширяваме към целия бизнес.",
+            "how-5-title": "5. Поддръжка и надграждане",
+            "how-5-body":
+                "Следим AI агенти в реално време, оптимизираме процеси и добавяме нови функционалности според нуждите на бизнеса.",
+            "how-card-title": "Резултат: автономен дигитален слой",
+            "how-card-body":
+                "AUTOMEXA AI създава „дигитален екип“ от AI агенти, които изпълняват повтарящи се задачи и общуват с вашите системи вместо хората.",
+            "how-card-tag":
+                "Вашите служители се фокусират върху стратегически решения, а не върху рутинни действия.",
+            "contact-title": "Свържете се с нас",
+            "contact-sub":
+                "Опишете накратко вашите процеси и предизвикателства. Ще подготвим безплатен AI одит и предложение за автоматизация, което може да представите пред вашите партньори.",
+            "form-name-label": "Име и фамилия",
+            "form-email-label": "Имейл",
+            "form-company-label": "Фирма / институция",
+            "form-message-label": "Кои процеси искате да автоматизирате?",
+            "form-submit": "Изпрати запитване",
+            "contact-direct-title": "Директен контакт",
+            "contact-phone-label": "Телефон:",
+            "contact-email-label": "Имейл:",
+            "contact-address-label": "Адрес:",
+            "contact-chat":
+                "Или използвайте вградения AI асистент долу вдясно за бързи въпроси относно автоматизацията.",
+            "footer-text":
+                "© 2025 AUTOMEXA AI. Всички права запазени. Създадено за свят, в който процесите работят сами.",
+            "chat-header-title": "AutoMexa AI Асистент",
+            "chat-header-sub": "Попитайте за автоматизация на процеси",
+            "chat-msg-welcome":
+                "Здравейте! Аз съм виртуалният асистент на AUTOMEXA AI. Разкажете ми накратко какви процеси искате да автоматизирате.",
+            "chat-send-btn": "Изпрати"
+        },
+        en: {
+            "logo-main": "AUTOMEXA AI",
+            "logo-sub": "An automated world for your business",
+            "nav-services": "Services",
+            "nav-industries": "Who it's for",
+            "nav-how": "How it works",
+            "nav-contact": "Contact",
+            "nav-audit": "Free AI audit",
+            "hero-label": "AI Automation • Next level",
+            "hero-title": "Automated <span>AI world</span> for your workflows",
+            "hero-subtitle":
+                "AUTOMEXA AI builds intelligent systems that take over repetitive tasks, reduce human error and free your team for strategic work.",
+            "metric-1": "AI agents with no downtime",
+            "metric-2": "average reduction in operational costs",
+            "metric-3": "typical deployment period",
+            "hero-orb-caption": "Click here – this is the AUTOMEXA AI chatbot.",
+            "services-title": "AI Services & Solutions",
+            "services-sub":
+                "We build tailored AI automations for companies and institutions – from chatbots and document workflows to ERP/CRM integration and video analytics.",
+            "service-1-title": "AI assistants & chatbots",
+            "service-1-body":
+                "Virtual agents that serve customers, answer questions, support employees and automatically fill in systems and forms.",
+            "service-1-tag": "24/7 support in multiple languages.",
+            "service-2-title": "Document automation",
+            "service-2-body":
+                "Automatic recognition, classification and processing of invoices, contracts, requests and reports – without manual data entry.",
+            "service-2-tag": "Fewer errors, faster audits.",
+            "service-3-title": "RPA + AI processes",
+            "service-3-body":
+                "Software robots that execute repetitive tasks in your systems, combined with AI logic for decision-making.",
+            "service-3-tag": "Seamless ERP/CRM integration.",
+            "service-4-title": "AI analytics & forecasts",
+            "service-4-body":
+                "Forecasting demand, costs, loads and team utilisation – visualised in interactive dashboards.",
+            "service-4-tag": "Decisions based on data, not intuition.",
+            "service-5-title": "Video analytics & security",
+            "service-5-body":
+                "AI systems for monitoring, detecting risky situations, abandoned objects, suspicious behaviour and real-time alerts.",
+            "service-5-tag": "Ideal for security, malls and public sector.",
+            "service-6-title": "Custom AI solutions",
+            "service-6-body":
+                "We develop unique AI modules tailored to your processes, policies and infrastructure – no one-size-fits-all templates.",
+            "service-6-tag": "AI tuned to your reality.",
+            "industries-title": "Who is AUTOMEXA AI for?",
+            "industries-sub":
+                "We work with organisations that handle complex workflows, high volume and demand for precision – where automation creates real value.",
+            "ind-1": "Factories and manufacturing plants",
+            "ind-2": "Retail chains, stores and e-commerce",
+            "ind-3": "Municipalities, government and EU institutions",
+            "ind-4": "Logistics and transport companies",
+            "ind-5": "Banks, finance and accounting departments",
+            "ind-6": "Security firms and video monitoring centres",
+            "ind-7": "Hospitals, clinics and medical centres",
+            "ind-8": "Hotels, travel agencies and HoReCa",
+            "industries-card-title": "Business impact in numbers",
+            "industries-card-body":
+                "Clients report 30–60% reduction in administrative time, faster request handling and better quality control.",
+            "ind-metric-1": "+20–35% higher team productivity",
+            "ind-metric-2": "-40–50% fewer manual operations",
+            "ind-metric-3": "ROI typically within 6–12 months",
+            "how-title": "How does AUTOMEXA AI work?",
+            "how-sub":
+                "Implementing AI automation is not magic, but a clear process – from audit to real-world results.",
+            "how-1-title": "1. Audit & process mapping",
+            "how-1-body":
+                "We analyse your current workflows, systems and workload. We identify bottlenecks and high-impact automation candidates.",
+            "how-2-title": "2. AI architecture design",
+            "how-2-body":
+                "We prepare a diagram of the future AI system – which agents, bots and integrations will be used and how they connect to your existing stack.",
+            "how-3-title": "3. Development & training",
+            "how-3-body":
+                "We configure AI models, set up RPA bots and train them with your data, policies and business logic.",
+            "how-4-title": "4. Pilot phase & rollout",
+            "how-4-body":
+                "We launch the system in a controlled environment, measure results, then scale to the entire organisation.",
+            "how-5-title": "5. Support & evolution",
+            "how-5-body":
+                "We monitor agents in real time, optimise processes and add new features as your business evolves.",
+            "how-card-title": "Result: an autonomous digital layer",
+            "how-card-body":
+                "AUTOMEXA AI creates a \"digital team\" of AI agents that perform repetitive tasks and interact with your systems instead of humans.",
+            "how-card-tag":
+                "Your people focus on strategy and relationships, not routine operations.",
+            "contact-title": "Get in touch",
+            "contact-sub":
+                "Briefly describe your processes and challenges. We’ll prepare a free AI audit and an automation proposal you can present to your partners.",
+            "form-name-label": "Full name",
+            "form-email-label": "Email",
+            "form-company-label": "Company / institution",
+            "form-message-label": "Which processes do you want to automate?",
+            "form-submit": "Send request",
+            "contact-direct-title": "Direct contact",
+            "contact-phone-label": "Phone:",
+            "contact-email-label": "Email:",
+            "contact-address-label": "Address:",
+            "contact-chat":
+                "Or use the built-in AI assistant in the bottom right corner for quick questions about automation.",
+            "footer-text":
+                "© 2025 AUTOMEXA AI. All rights reserved. Built for a world where workflows run themselves.",
+            "chat-header-title": "AutoMexa AI Assistant",
+            "chat-header-sub": "Ask about process automation",
+            "chat-msg-welcome":
+                "Hello! I’m the virtual assistant of AUTOMEXA AI. Tell me briefly which processes you would like to automate.",
+            "chat-send-btn": "Send"
+        }
+    };
+
+    let currentLang = "bg";
+
+    function applyTranslations(lang) {
+        const elements = document.querySelectorAll("[data-i18n]");
+        elements.forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            const value = translations[lang][key];
+            if (value !== undefined) {
+                if (value.includes("<span")) {
+                    el.innerHTML = value;
+                } else {
+                    el.textContent = value;
+                }
+            }
+        });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const lang = btn.dataset.lang;
+            if (lang === currentLang) return;
+            currentLang = lang;
+            document
+                .querySelectorAll(".lang-btn")
+                .forEach((b) => b.classList.toggle("active", b === btn));
+            applyTranslations(lang);
+        });
+    });
+
+    applyTranslations("bg");
+
+    const launcher = document.getElementById("chatbot-launcher");
+    const chatWindow = document.getElementById("chatbot-window");
+    const chatClose = document.getElementById("chatbot-close");
+    const chatBody = document.getElementById("chatbot-body");
+    const chatInput = document.getElementById("chatbot-input");
+    const chatSend = document.getElementById("chatbot-send");
+    const heroOrb = document.getElementById("hero-orb");
+
+    function toggleChat(open) {
+        chatWindow.classList.toggle("open", open);
+    }
+
+    launcher.addEventListener("click", () =>
+        toggleChat(!chatWindow.classList.contains("open"))
+    );
+    chatClose.addEventListener("click", () => toggleChat(false));
+
+    function addMessage(text, from = "user") {
+        const div = document.createElement("div");
+        div.className = "chat-msg " + from;
+        div.textContent = text;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Клик върху големия орб – отваря чатбота и обяснява какво е
+    if (heroOrb) {
+        heroOrb.addEventListener("click", () => {
+            const firstOpen = !chatWindow.classList.contains("open");
+            toggleChat(true);
+            if (firstOpen) {
+                const text =
+                    currentLang === "bg"
+                        ? "Това е AI чатботът на AUTOMEXA AI. Попитай ме как можем да автоматизираме твоя бизнес."
+                        : "This is the AUTOMEXA AI chatbot. Ask me how we can automate your business.";
+                addMessage(text, "bot");
+            }
+        });
+    }
+
+    function getBotReply(text) {
+        const t = text.toLowerCase();
+
+        if (t.includes("цена") || t.includes("колко струва") || t.includes("стойност")) {
+            return currentLang === "bg"
+                ? "Цената зависи от процесите и обема работа. Обикновено правим пилотен проект и след това даваме точна оферта. За презентация пред партньори можеш да кажеш, че работим с гъвкаво ценообразуване според ефекта."
+                : "Pricing depends on your processes and workload. We usually start with a pilot, then prepare an exact offer. You can present it as flexible, ROI-based pricing.";
+        }
+
+        if (t.includes("контакт") || t.includes("телефон") || t.includes("email") || t.includes("имейл")) {
+            return currentLang === "bg"
+                ? "Можеш да посочиш: +359 888 000 000 и office@automexa.ai като основни контакти. За официална кореспонденция препоръчваме имейл."
+                : "You can use: +359 888 000 000 and office@automexa.ai as primary contacts. For formal communication we recommend email.";
+        }
+
+        if (t.includes("институци") || t.includes("мвр") || t.includes("държава")) {
+            return currentLang === "bg"
+                ? "За институции и МВР фокусът е върху прозрачност, контрол и сигурност – автоматизирани справки, видеоаналитика, контрол на достъпа и проследимост на действията."
+                : "For public institutions the focus is transparency, control and security – automated reports, video analytics, access control and traceable actions.";
+        }
+
+        if (t.includes("фабрика") || t.includes("завод") || t.includes("производств")) {
+            return currentLang === "bg"
+                ? "В заводи обикновено автоматизираме документооборота, планирането на поръчки, складови движения и контрол на качеството."
+                : "In factories we usually automate document workflows, production orders, warehouse movements and quality checks.";
+        }
+
+        if (t.includes("демо") || t.includes("презентац") || t.includes("пример")) {
+            return currentLang === "bg"
+                ? "За презентация пред партньори можеш да покажеш началната страница, секцията 'Услуги' и да обясниш 5-те стъпки в 'Как работи'. Това дава много професионално впечатление."
+                : "For a partner presentation you can show the Home page, the Services section and explain the 5 steps in 'How it works'. That usually leaves a very strong impression.";
+        }
+
+        if (t.includes("price") || t.includes("cost")) {
+            return "Our pricing depends on the complexity and volume of your processes. We usually start with a pilot project and then provide a detailed proposal based on the real impact.";
+        }
+
+        if (t.includes("hello") || t.includes("hi")) {
+            return currentLang === "bg"
+                ? "Здрасти! Разкажи ми малко за бизнеса – в каква сфера си и какви процеси искаш да автоматизираш?"
+                : "Hey! Tell me a bit about your business – what industry are you in and which processes would you like to automate?";
+        }
+
+        return currentLang === "bg"
+            ? "Разбирам. Това изглежда като интересен казус за автоматизация. За точен анализ е добре да го опишеш по-подробно във формата за контакт и ще ти върнем конкретно предложение."
+            : "Got it. That sounds like an interesting automation case. For a precise analysis, describe it briefly in the contact form and we’ll send you a tailored proposal.";
+    }
+
+    chatSend.addEventListener("click", handleSend);
+    chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            handleSend();
+        }
+    });
+
+    function handleSend() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        addMessage(text, "user");
+        chatInput.value = "";
+        setTimeout(() => {
+            const reply = getBotReply(text);
+            addMessage(reply, "bot");
+        }, 500);
+    }
+</script>
+</body>
+</html>
