@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
@@ -103,6 +103,33 @@ document.addEventListener("DOMContentLoaded", () => {
     ring3.rotation.y = -0.15;
     hudGroup.add(ring3);
 
+    // Subtle tick ring (cheap): line loop circle
+    function makeTickRing(radius, color, opacity, segments) {
+        const geo = new THREE.BufferGeometry();
+        const pts = [];
+        const seg = Math.max(24, segments || 96);
+        for (let i = 0; i <= seg; i++) {
+            const a = (i / seg) * Math.PI * 2;
+            const r = radius + ((i % 8 === 0) ? 0.08 : 0.0);
+            pts.push(Math.cos(a) * r, 0, Math.sin(a) * r);
+        }
+        geo.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
+        const mat = new THREE.LineBasicMaterial({
+            color,
+            transparent: true,
+            opacity,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        });
+        const line = new THREE.Line(geo, mat);
+        line.rotation.x = Math.PI / 2.18;
+        return line;
+    }
+
+    const tickRing = makeTickRing(6.15, CYAN, 0.12, 120);
+    tickRing.rotation.y = 0.35;
+    hudGroup.add(tickRing);
+
     // 3) Particles
   const particlesGeo = new THREE.BufferGeometry();
   const positions = new Float32Array(STAR_COUNT * 3);
@@ -146,6 +173,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const particles2 = new THREE.Points(particlesGeo2, particlesMat2);
     scene.add(particles2);
 
+    // 4) Light rays (platform hologram look) — very light geometry
+    const raysGroup = new THREE.Group();
+    raysGroup.position.y = -4.25;
+    scene.add(raysGroup);
+
+    const rayGeo = new THREE.PlaneGeometry(0.06, 3.2);
+    const rayMat = new THREE.MeshBasicMaterial({
+        color: CYAN,
+        transparent: true,
+        opacity: 0.09,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+    });
+
+    const RAY_COUNT = 18;
+    for (let i = 0; i < RAY_COUNT; i++) {
+        const m = new THREE.Mesh(rayGeo, rayMat.clone());
+        const a = (i / RAY_COUNT) * Math.PI * 2;
+        const r = 5.05 + (i % 3) * 0.06;
+        m.position.set(Math.cos(a) * r, 1.0, Math.sin(a) * r);
+        m.rotation.y = a;
+        m.material.opacity = 0.06 + (i % 5) * 0.006;
+        raysGroup.add(m);
+    }
+
   // --- ANIMATION LOOP ---
   
     let animationId;
@@ -171,11 +224,16 @@ document.addEventListener("DOMContentLoaded", () => {
       ring2.rotation.z = -elapsedTime * 0.035;
       ring3.rotation.z = elapsedTime * 0.025;
 
+    tickRing.rotation.z = elapsedTime * 0.018;
+
       gridHelper.rotation.y = elapsedTime * 0.02;
       const pulse = 0.11 + Math.sin(elapsedTime * 0.9) * 0.01;
       gridHelper.material.opacity = pulse;
 
       platformGroup.rotation.y = -elapsedTime * 0.015;
+
+    // Very subtle hologram ray wobble
+    raysGroup.rotation.y = elapsedTime * 0.01;
 
       particles.rotation.y = elapsedTime * 0.04;
       particles2.rotation.y = -elapsedTime * 0.03;

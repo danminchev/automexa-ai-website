@@ -16,38 +16,39 @@
         }
 
         :root {
-            /* Reference palette (DO NOT change hex) */
-            --bg-1: #0B1220;
-            --bg-2: #101A2F;
-            --surface: #141C2F;
+            /* Reference palette - Deep Space Theme */
+            --bg-1: #050B18;
+            --bg-2: #0A1628;
+            --surface: #0D1A2D;
             --text: #EAF2FF;
-            --muted: #B7C6DA;
-            --cyan: #7DB6CF;
-            --blue: #597DA8;
-            --violet: #BB77E7;
+            --muted: #8BA3C7;
+            --cyan: #00D4FF;
+            --blue: #3B82F6;
+            --violet: #A855F7;
+            --magenta: #E040FB;
             --green: #40B96F;
-            --border: rgba(125, 182, 207, 0.18);
-            --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+            --border: rgba(0, 212, 255, 0.15);
+            --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
 
             --radius-lg: 18px;
-            --focus-ring: 0 0 0 4px rgba(125, 182, 207, 0.22);
+            --focus-ring: 0 0 0 4px rgba(0, 212, 255, 0.25);
 
-            /* Back-compat mappings (existing CSS uses these) */
+            /* Back-compat mappings */
             --page-bg: var(--bg-1);
-            --header-bg: rgba(11, 18, 32, 0.52);
-            --primary: var(--blue);
+            --header-bg: rgba(5, 11, 24, 0.75);
+            --primary: var(--cyan);
             --accent: var(--violet);
             --cta-text: #EAF2FF;
             --bg-main: var(--bg-1);
             --accent-blue: var(--blue);
             --accent-teal: var(--cyan);
-            --accent-pink: var(--violet);
+            --accent-pink: var(--magenta);
             --text-main: var(--text);
         }
 
         body {
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
+            background: radial-gradient(ellipse 120% 100% at 50% 0%, #0A1A30 0%, #050B18 50%, #030712 100%);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
@@ -55,21 +56,34 @@
             line-height: 1.7;
         }
 
-        /* Fine star dust + vignette */
+        /* Deep space star field effect */
         body::before {
             content: "";
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            background:
-                radial-gradient(circle at 12% 18%, rgba(255,255,255,0.06) 1px, transparent 2px),
-                radial-gradient(circle at 52% 64%, rgba(255,255,255,0.05) 1px, transparent 2px),
-                radial-gradient(circle at 78% 24%, rgba(255,255,255,0.04) 1px, transparent 2px),
-                radial-gradient(circle at 92% 78%, rgba(255,255,255,0.05) 1px, transparent 2px);
-            background-size: 420px 420px, 520px 520px, 680px 680px, 780px 780px;
-            opacity: 0.05;
-            filter: blur(0.2px);
+            background-image: 
+                radial-gradient(2px 2px at 20% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+                radial-gradient(2px 2px at 40% 35%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 60% 10%, rgba(255,255,255,0.8) 0%, transparent 100%),
+                radial-gradient(2px 2px at 80% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 35% 75%, rgba(255,255,255,0.7) 0%, transparent 100%),
+                radial-gradient(2px 2px at 55% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.8) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 90% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
+                radial-gradient(2px 2px at 10% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+                radial-gradient(1px 1px at 25% 30%, rgba(0, 212, 255, 0.9) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 70% 80%, rgba(168, 85, 247, 0.8) 0%, transparent 100%),
+                radial-gradient(1px 1px at 85% 40%, rgba(0, 212, 255, 0.7) 0%, transparent 100%);
+            background-size: 550px 550px;
+            animation: twinkle 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
         }
 
         body::after {
@@ -79,9 +93,10 @@
             pointer-events: none;
             z-index: 0;
             background:
-                radial-gradient(1200px 800px at 70% 40%, rgba(125, 182, 207, 0.12), transparent 55%),
-                radial-gradient(900px 700px at 85% 55%, rgba(187, 119, 231, 0.08), transparent 60%),
-                radial-gradient(closest-side at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+                radial-gradient(900px 700px at 70% 35%, rgba(0, 212, 255, 0.08), transparent 60%),
+                radial-gradient(800px 600px at 75% 50%, rgba(168, 85, 247, 0.1), transparent 55%),
+                radial-gradient(600px 500px at 85% 60%, rgba(224, 64, 251, 0.06), transparent 50%),
+                radial-gradient(closest-side at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
             opacity: 1;
         }
 
@@ -198,10 +213,11 @@
             letter-spacing: 0.12em;
             font-size: 20px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, var(--cyan), var(--violet));
+            background: linear-gradient(90deg, #00D4FF, #A855F7);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
         .logo-sub {
@@ -292,27 +308,27 @@
         .cta-top {
             padding: 10px 26px;
             border-radius: 999px;
-            border: 1px solid rgba(89, 125, 168, 0.45);
-            background: linear-gradient(90deg, #597DA8 0%, #BB77E7 100%);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: linear-gradient(90deg, #3B82F6 0%, #A855F7 50%, #E040FB 100%);
             box-shadow:
-                0 10px 26px rgba(0, 0, 0, 0.45),
-                0 0 18px rgba(89, 125, 168, 0.18),
-                0 0 22px rgba(187, 119, 231, 0.16);
+                0 10px 26px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(0, 212, 255, 0.25),
+                0 0 40px rgba(168, 85, 247, 0.2);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            color: #EAF2FF;
+            color: #FFFFFF;
             transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
         }
 
         .cta-top:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.06);
+            transform: translateY(-2px);
+            filter: brightness(1.1);
             box-shadow:
-                0 16px 34px rgba(0, 0, 0, 0.48),
-                0 0 22px rgba(89, 125, 168, 0.26),
-                0 0 26px rgba(187, 119, 231, 0.22);
+                0 16px 34px rgba(0, 0, 0, 0.55),
+                0 0 35px rgba(0, 212, 255, 0.35),
+                0 0 50px rgba(168, 85, 247, 0.3);
         }
 
         .cta-top:focus {
@@ -370,13 +386,25 @@
         .hero {
             width: 100vw;
             min-height: 100vh;
+            padding: 120px 0 54px;
+            position: relative;
+            z-index: 1;
+
+            /* full-bleed section inside a centered main */
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .hero-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 18px;
             display: grid;
             grid-template-columns: 55% 45%;
             align-items: center;
             gap: 28px;
-            padding: 120px 0 54px;
-            position: relative;
-            z-index: 1;
         }
 
         .hero-text {
@@ -392,11 +420,11 @@
         }
 
         .hero-title .hl {
-            background: linear-gradient(90deg, #7DB6CF 0%, #BB77E7 100%);
+            background: linear-gradient(90deg, #00D4FF 0%, #A855F7 60%, #E040FB 100%);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 18px rgba(125, 182, 207, 0.22);
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.4), 0 0 80px rgba(168, 85, 247, 0.3);
         }
 
         .hero-subtitle {
@@ -420,8 +448,9 @@
             font-size: 26px;
             font-weight: 600;
             display: block;
-            color: var(--cyan);
+            color: #00D4FF;
             letter-spacing: 0.01em;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
         .hero-metrics span:last-child {
@@ -456,8 +485,9 @@
             position: relative;
             z-index: 3;
             filter:
-                drop-shadow(0 18px 34px rgba(0,0,0,0.55))
-                drop-shadow(0 0 22px rgba(125, 182, 207, 0.22));
+                drop-shadow(0 0 60px rgba(0, 212, 255, 0.4))
+                drop-shadow(0 0 120px rgba(168, 85, 247, 0.3))
+                drop-shadow(0 20px 40px rgba(0,0,0,0.6));
             animation: floatOrb 7s ease-in-out infinite;
         }
 
@@ -471,9 +501,9 @@
             z-index: 2;
             pointer-events: none;
             background:
-                radial-gradient(closest-side at 50% 55%, rgba(125,182,207,0.20), transparent 70%),
-                radial-gradient(closest-side at 50% 55%, rgba(187,119,231,0.14), transparent 72%);
-            filter: blur(0.2px);
+                radial-gradient(closest-side at 50% 55%, rgba(0, 212, 255, 0.25), transparent 70%),
+                radial-gradient(closest-side at 50% 55%, rgba(168, 85, 247, 0.18), transparent 72%);
+            filter: blur(1px);
             opacity: 0.9;
         }
 
@@ -517,11 +547,11 @@
 
         .card:hover {
             transform: translateY(-2px);
-            border-color: rgba(255, 214, 10, 0.35);
+            border-color: rgba(125, 182, 207, 0.32);
             box-shadow:
                 var(--shadow),
-                0 0 0 1px rgba(255, 214, 10, 0.1),
-                0 0 26px rgba(255, 214, 10, 0.12);
+                0 0 0 1px rgba(125, 182, 207, 0.10),
+                0 0 26px rgba(187, 119, 231, 0.12);
         }
 
         .card h3 {
@@ -609,7 +639,7 @@
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: rgba(255, 214, 10, 0.45);
+            border-color: rgba(125, 182, 207, 0.38);
             box-shadow: var(--focus-ring);
         }
 
@@ -618,7 +648,7 @@
             justify-self: start;
             padding: 10px 16px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 214, 10, 0.35);
+            border: 1px solid rgba(125, 182, 207, 0.28);
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: var(--cta-text);
             font-weight: 600;
@@ -631,8 +661,8 @@
             filter: brightness(1.05);
             box-shadow:
                 0 14px 32px rgba(0, 0, 0, 0.55),
-                0 0 22px rgba(255, 214, 10, 0.25),
-                0 0 26px rgba(114, 9, 183, 0.2);
+                0 0 22px rgba(89, 125, 168, 0.22),
+                0 0 26px rgba(187, 119, 231, 0.20);
         }
 
         .btn-primary:focus {
@@ -671,12 +701,13 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: rgba(20, 28, 47, 0.62);
-            border: 1px solid rgba(89, 125, 168, 0.55);
+            background: rgba(5, 11, 24, 0.85);
+            border: 1px solid rgba(0, 212, 255, 0.4);
             box-shadow:
-                0 18px 40px rgba(0, 0, 0, 0.48),
-                0 0 18px rgba(89, 125, 168, 0.22);
-            backdrop-filter: blur(14px);
+                0 18px 40px rgba(0, 0, 0, 0.55),
+                0 0 30px rgba(0, 212, 255, 0.25),
+                0 0 60px rgba(168, 85, 247, 0.15);
+            backdrop-filter: blur(16px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -684,9 +715,14 @@
             z-index: 20;
         }
 
+        .chatbot-launcher.hidden {
+            display: none;
+        }
+
         .chatbot-launcher span {
             font-size: 26px;
             color: var(--cyan);
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
 
         .chatbot-window {
@@ -696,10 +732,12 @@
             width: 320px;
             max-height: 430px;
             border-radius: 18px;
-            background: rgba(20, 28, 47, 0.62);
-            border: 1px solid rgba(89, 125, 168, 0.35);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
+            background: rgba(5, 11, 24, 0.92);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                0 18px 40px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(20px);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -786,11 +824,12 @@
         .chatbot-input-area button {
             padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(89, 125, 168, 0.45);
-            background: linear-gradient(90deg, #597DA8 0%, #BB77E7 100%);
+            border: 1px solid rgba(0, 212, 255, 0.35);
+            background: linear-gradient(90deg, #3B82F6 0%, #A855F7 100%);
             cursor: pointer;
             font-size: 12px;
-            color: #EAF2FF;
+            color: #FFFFFF;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
         }
 
 
@@ -866,9 +905,12 @@
 
         @media (max-width: 860px) {
             .hero {
+                padding-top: 110px;
+            }
+
+            .hero-inner {
                 grid-template-columns: 1fr;
                 text-align: center;
-                padding-top: 110px;
             }
             .hero-text {
                 text-align: center;
@@ -892,6 +934,17 @@
             .chatbot-window {
                 right: 10px;
                 width: calc(100% - 20px);
+            }
+        }
+
+        /* Desktop: show chatbot card by default (reference-like) */
+        @media (min-width: 861px) {
+            .chatbot-window {
+                bottom: 22px;
+                max-height: 460px;
+            }
+            .chatbot-launcher {
+                display: none;
             }
         }
     </style>
@@ -941,7 +994,14 @@
 
     <main>
         <!-- HERO -->
-        <section class="hero" id="home">
+        <section class="hero cosmic-hero" id="home">
+            <div class="hero-bg" aria-hidden="true">
+                <canvas id="hero-stars"></canvas>
+                <canvas id="hero-trails"></canvas>
+                <div class="hero-nebula"></div>
+                <div class="hero-vignette"></div>
+            </div>
+            <div class="hero-inner">
             <div class="hero-text">
                 <h1 class="hero-title" data-i18n="hero-title">
                     <span class="hl">AI автоматизация</span> за<br />интелигентни процеси
@@ -969,9 +1029,18 @@
             </div>
 
             <div class="hero-visual" id="hero-orb" aria-label="Hero visual">
-                <div id="hero-3d-container" aria-hidden="true"></div>
-                <div class="hero-platform-css" aria-hidden="true"></div>
-                <img src="assets/images/ai-orb.png" alt="AI Orb" class="hero-orb-img" />
+                <div class="hero-floor" aria-hidden="true"></div>
+                <div class="orb-wrap">
+                    <div class="orb-glow" aria-hidden="true"></div>
+                    <div class="holo-base" aria-hidden="true">
+                        <span class="holo-ring ring-1"></span>
+                        <span class="holo-ring ring-2"></span>
+                        <span class="holo-ring ring-3"></span>
+                        <span class="holo-grid"></span>
+                    </div>
+                    <img src="assets/images/ai-orb.png" alt="AI Orb" class="hero-orb-img" />
+                </div>
+            </div>
             </div>
         </section>
 
@@ -1274,7 +1343,7 @@
     <span>💬</span>
 </div>
 
-<div class="chatbot-window" id="chatbot-window">
+<div class="chatbot-window open" id="chatbot-window">
     <div class="chatbot-header">
         <div class="chatbot-header-title">
             <span data-i18n="chat-header-title">AutoMexa AI Асистент</span>
@@ -1294,6 +1363,7 @@
     </div>
 </div>
 
+<script src="assets/js/hero-bg.js"></script>
 <script>
     const translations = {
         bg: {
@@ -1608,12 +1678,18 @@
 
     function toggleChat(open) {
         chatWindow.classList.toggle("open", open);
+        launcher.classList.toggle("hidden", open);
     }
 
     launcher.addEventListener("click", () =>
         toggleChat(!chatWindow.classList.contains("open"))
     );
     chatClose.addEventListener("click", () => toggleChat(false));
+
+    // Open by default on desktop to match the reference-like visible widget.
+    if (window.matchMedia("(min-width: 861px)").matches) {
+        toggleChat(true);
+    }
 
     function addMessage(text, from = "user") {
         const div = document.createElement("div");
