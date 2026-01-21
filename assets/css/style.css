@@ -1,16 +1,16 @@
-/* Futuristic AI (Neon/Dark) theme */
+/* Futuristic AI (Purple/Gold) theme */
 
 :root {
-  --page-bg: #050B18;
-  --surface: rgba(255, 255, 255, 0.04);
-  --header-bg: rgba(5, 11, 24, 0.65);
-  --text: #E5E7EB;
-  --muted: #94A3B8;
-  --border: rgba(255, 255, 255, 0.10);
-  --primary: #00E5FF;
-  --accent: #7C3AED;
-  --cta-text: #061018;
-  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --page-bg: #F9FAFB; /* Ultra light cool gray/white */
+  --surface: rgba(255, 255, 255, 0.75);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --text: #111827; /* Dark gray/black for text */
+  --muted: #6B7280;
+  --border: rgba(114, 9, 183, 0.15);
+  --primary: #D97706; /* Deep Amber/Gold */
+  --accent: #7C3AED; /* Bright Purple */
+  --cta-text: #FFFFFF;
+  --shadow: 0 10px 30px rgba(114, 9, 183, 0.08);
 
   /* Optional back-compat tokens (useful across pages) */
   --bg-main: var(--page-bg);
@@ -27,10 +27,10 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 10% 15%, rgba(0, 229, 255, 0.12) 0, transparent 55%),
-    radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.14) 0, transparent 55%),
-    radial-gradient(circle at 55% 92%, rgba(0, 229, 255, 0.08) 0, transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 35%),
+    radial-gradient(circle at 10% 15%, rgba(217, 119, 6, 0.1) 0, transparent 55%),
+    radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.1) 0, transparent 55%),
+    radial-gradient(circle at 55% 92%, rgba(217, 119, 6, 0.08) 0, transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 35%),
     var(--page-bg);
 }
 
@@ -48,8 +48,8 @@ header {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
   background-size: 80px 80px;
   opacity: 0.35;
   transform-origin: center top;
@@ -111,7 +111,7 @@ a {
 .orb {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid rgba(0, 229, 255, 0.38);
+  border: 2px solid rgba(255, 214, 10, 0.4); /* Gold */
   width: 80px;
   height: 80px;
   top: 50%;
@@ -121,7 +121,7 @@ a {
 }
 
 .orb-2 {
-  border-color: rgba(124, 58, 237, 0.36);
+  border-color: rgba(114, 9, 183, 0.4); /* Purple */
   width: 95px;
   height: 95px;
 }
@@ -167,18 +167,109 @@ a {
   display: none;
 }
 
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 20;
+}
+
+.nav-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: var(--text);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
 @media (max-width: 960px) {
-  .nav {
-    flex-wrap: wrap;
+  .nav-toggle {
+    display: flex;
+    margin-left: 10px; /* Reduced margin */
   }
 
   .nav-links {
-    order: 3;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    justify-content: center;
-    margin-top: 6px;
-    flex-wrap: wrap;
-    overflow-x: visible;
+    flex-direction: column;
+    background: var(--header-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    gap: 20px;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  /* Move CTA to menu on mobile */
+  .nav-right .cta-top {
+    display: none;
+  }
+  
+  /* Logo Adjustments for Mobile */
+  .logo-sub {
+    display: none; /* Hide subtitle to save space */
+  }
+  .logo-wrapper {
+    gap: 12px; /* Reduce gap */
+  }
+  .logo-title {
+    font-size: 18px; /* Slightly smaller text */
+  }
+  .logo-orb, .logo-orb .brain-img {
+    width: 42px; /* Smaller logo image */
+    height: 42px;
+  }
+  .orb {
+    width: 60px; height: 60px; /* Smaller orbs */
+  }
+  .orb-2 {
+    width: 70px; height: 70px;
+  }
+  
+  /* Reduce container gaps */
+  .nav {
+    gap: 10px;
+    padding: 10px 14px;
+    justify-content: space-between;
+  }
+  .nav-right {
+    gap: 10px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+/* Hide the cloned mobile CTA on desktop */
+@media (min-width: 961px) {
+  .nav-links .mobile-cta {
+    display: none !important;
   }
 }
 
@@ -232,10 +323,10 @@ main {
 .cta-top {
   color: var(--cta-text);
   background: linear-gradient(90deg, var(--primary), var(--accent));
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 214, 10, 0.25);
   box-shadow:
-    0 10px 28px rgba(0, 229, 255, 0.16),
-    0 10px 28px rgba(124, 58, 237, 0.14);
+    0 10px 28px rgba(255, 214, 10, 0.16),
+    0 10px 28px rgba(114, 9, 183, 0.14);
   transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
   display: inline-flex;
   align-items: center;
@@ -245,10 +336,10 @@ main {
 
 .cta-top:hover {
   transform: translateY(-1px);
-  filter: brightness(1.06) saturate(1.08);
+  filter: brightness(1.1) saturate(1.1);
   box-shadow:
-    0 14px 36px rgba(0, 229, 255, 0.22),
-    0 14px 36px rgba(124, 58, 237, 0.18);
+    0 14px 36px rgba(255, 214, 10, 0.25),
+    0 14px 36px rgba(114, 9, 183, 0.2);
 }
 
 /* Cards / surfaces */
@@ -279,16 +370,16 @@ main {
   border-radius: 999px;
   background: linear-gradient(90deg, var(--primary), var(--accent));
   box-shadow:
-    0 0 10px rgba(0, 229, 255, 0.35),
-    0 0 12px rgba(124, 58, 237, 0.25);
+    0 0 10px rgba(255, 214, 10, 0.4),
+    0 0 12px rgba(114, 9, 183, 0.3);
   opacity: 0.9;
 }
 
 /* Optional: show active state for CTA too (used on audit.html) */
 .cta-top.active {
   box-shadow:
-    0 0 0 3px rgba(0, 229, 255, 0.18),
-    0 0 0 6px rgba(124, 58, 237, 0.12),
-    0 14px 36px rgba(0, 229, 255, 0.22),
-    0 14px 36px rgba(124, 58, 237, 0.18);
+    0 0 0 3px rgba(255, 214, 10, 0.2),
+    0 0 0 6px rgba(114, 9, 183, 0.15),
+    0 14px 36px rgba(255, 214, 10, 0.25),
+    0 14px 36px rgba(114, 9, 183, 0.2);
 }
