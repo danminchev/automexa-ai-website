@@ -4,7 +4,7 @@
   /* Deep Space Palette */
   --bg-dark: #050B18;
   --bg-darker: #0A1628;
-  --surface: #0D1A2D;
+  --surface: rgba(13, 26, 45, 0.65);
   
   --text-main: #EAF2FF;
   --text-secondary: #8BA3C7;
@@ -39,15 +39,19 @@ body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   color: var(--text-main);
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    radial-gradient(ellipse 120% 100% at 50% 0%, #0A1A30 0%, #050B18 50%, #030712 100%);
+  /* Fallback color */
+  background-color: #050B18;
+  /* New Background Image for internal pages */
+  background-image: url('../images/page-bg.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-attachment: fixed;
+  
   position: relative;
   overflow-x: hidden;
   
-  /* Vignette */
+  /* Vignette to improve text readability */
   box-shadow: inset 0 0 200px rgba(0,0,0,0.8);
 }
 
@@ -383,12 +387,16 @@ body {
 
 /* HEADER OVERRIDES */
 header {
-    background: transparent !important;
-    backdrop-filter: blur(8px); /* Optional subtle blur */
+    background: linear-gradient(180deg, rgba(5, 11, 24, 0.65), rgba(5, 11, 24, 0.3));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    box-shadow: none !important;
-    position: absolute; /* Overlap hero */
+    position: fixed; /* Stick to top */
+    top: 0;
+    left: 0;
+    z-index: 50;
     width: 100%;
+    transition: background 0.3s ease;
 }
 
 .cta-top {
@@ -742,7 +750,7 @@ header {
 main {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 40px 18px 80px 18px;
+  padding: 120px 18px 80px 18px;
 }
 
 /* CTA neon gradient + hover */

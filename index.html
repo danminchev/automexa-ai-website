@@ -118,9 +118,9 @@
             right: 0;
             top: 0;
             z-index: 50;
-            backdrop-filter: blur(14px);
-            background: linear-gradient(180deg, rgba(11,18,32,0.58), rgba(11,18,32,0.28));
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            background: linear-gradient(180deg, rgba(11,18,32,0.30), rgba(11,18,32,0.10));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
 
         header::after {
@@ -1054,13 +1054,10 @@
     <main>
         <!-- HERO -->
         <section class="hero cosmic-hero" id="home">
-            <div class="hero-bg" aria-hidden="true">
-                <canvas id="hero-stars"></canvas>
-                <canvas id="hero-trails"></canvas>
-                <div class="hero-nebula"></div>
-                <div class="hero-vignette"></div>
-            </div>
-            <div class="hero-inner">
+            <!-- 3D Scene Container: full cover, aligned top to prevent head crop -->
+            <div id="hero-3d-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; background-color: #02040a; background-image: url('assets/images/hero-bg-main.jpg'); background-repeat: no-repeat; background-position: center top; background-size: cover;"></div>
+            
+            <div class="hero-inner" style="position: relative; z-index: 2;">
             <div class="hero-text">
                 <h1 class="hero-title" data-i18n="hero-title">
                     <span class="hl">AI автоматизация</span> за<br />интелигентни процеси
@@ -1087,19 +1084,8 @@
                 </div>
             </div>
 
-            <div class="hero-visual" id="hero-orb" aria-label="Hero visual">
-                <div class="hero-floor" aria-hidden="true"></div>
-                <div class="orb-wrap">
-                    <div class="orb-glow" aria-hidden="true"></div>
-                    <div class="holo-base" aria-hidden="true">
-                        <span class="holo-ring ring-1"></span>
-                        <span class="holo-ring ring-2"></span>
-                        <span class="holo-ring ring-3"></span>
-                        <span class="holo-grid"></span>
-                    </div>
-                    <img src="assets/images/ai-orb.png" alt="AI Orb" class="hero-orb-img" />
-                </div>
-            </div>
+            <!-- Removed Hero Visual Orb as it is now part of the 3D Background -->
+            <div class="hero-visual-placeholder"></div>
             </div>
         </section>
 
@@ -1365,28 +1351,11 @@
     </div>
 </div>
 
-<script src="assets/js/hero-bg.js"></script>
+<!-- Changed Order: Scene first so main.js runs after -->
 <script>
     const translations = {
         bg: {
             "logo-main": "AUTOMEXA AI",
-            "logo-sub": "Автоматизиран свят за вашия бизнес",
-            "nav-ai": "Какво е ИИ",
-            "nav-services": "Услуги",
-            "nav-industries": "За кого",
-            "nav-how": "Как работи",
-            "nav-contact": "Контакти",
-            "nav-audit": "Безплатен AI одит",
-            "hero-label": "AI Автоматизация • Следващо ниво",
-            "hero-title": "<span class=\"hl\">AI</span> <span class=\"hl\">автоматизация</span> за <span class=\"hl\">интелигентни</span> процеси",
-            "hero-subtitle":
-                "AUTOMEXA AI изгражда интелигентни системи, които поемат повтарящите се задачи, намаляват човешките грешки и освобождават екипа ви за стратегическа работа.",
-            "metric-1": "AI агенти без почивка",
-            "metric-2": "средно по-малко оперативни разходи",
-            "metric-3": "типичен период за внедряване",
-            "hero-orb-caption": "Кликни тук – това е AI чатботът на AUTOMEXA AI.",
-            "ai101-title": "Какво е ИИ (изкуствен интелект)?",
-            "ai101-sub":
                 "Ако темата ви звучи сложна или \"страшна\", не сте сами. В бизнеса ИИ не е робот, който \"замества хора\", а инструмент, който помага на екипите да работят по-бързо, по-точно и с по-малко напрежение.",
             "ai101-p1":
                 "Изкуственият интелект е софтуер, който разпознава модели в данни (текст, числа, изображения) и може да подпомага решения или да изпълнява конкретни задачи – например да отговаря на въпроси, да класифицира документи или да сигнализира за риск. В практиката най-често става дума за \"тесен\" ИИ: много добър в една конкретна работа, но не и \"разум\" като във филмите.",
@@ -1676,7 +1645,9 @@
     const chatBody = document.getElementById("chatbot-body");
     const chatInput = document.getElementById("chatbot-input");
     const chatSend = document.getElementById("chatbot-send");
-    const heroOrb = document.getElementById("hero-orb");
+    
+    // Removed legacy heroOrb reference since we replaced the hero visual
+    // const heroOrb = document.getElementById("hero-orb");
 
     function toggleChat(open) {
         chatWindow.classList.toggle("open", open);
@@ -1698,20 +1669,10 @@
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    // Клик върху големия орб – отваря чатбота и обяснява какво е
-    if (heroOrb) {
-        heroOrb.addEventListener("click", () => {
-            const firstOpen = !chatWindow.classList.contains("open");
-            toggleChat(true);
-            if (firstOpen) {
-                const text =
-                    currentLang === "bg"
-                        ? "Това е AI чатботът на AUTOMEXA AI. Попитай ме как можем да автоматизираме твоя бизнес."
-                        : "This is the AUTOMEXA AI chatbot. Ask me how we can automate your business.";
-                addMessage(text, "bot");
-            }
-        });
-    }
+    // Клик върху големия орб – кодът е премахнат, тъй като орбите са вече част от фона
+    // if (heroOrb) {
+    //     heroOrb.addEventListener("click", ...);
+    // }
 
     function getBotReply(text) {
         const t = text.toLowerCase();
@@ -1798,7 +1759,8 @@
         }, 500);
     }
 </script>
+    <!-- Use new 3D Scene script -->
+    <script src="assets/js/hero-scene.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/hero-3d.js"></script>
 </body>
 </html>
