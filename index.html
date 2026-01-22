@@ -6,49 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
     <style>
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         :root {
-            /* Reference palette - Deep Space Theme */
-            --bg-1: #050B18;
-            --bg-2: #0A1628;
-            --surface: #0D1A2D;
-            --text: #EAF2FF;
-            --muted: #8BA3C7;
-            --cyan: #00D4FF;
-            --blue: #3B82F6;
-            --violet: #A855F7;
-            --magenta: #E040FB;
-            --green: #40B96F;
-            --border: rgba(0, 212, 255, 0.15);
-            --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+            /* Futuristic AI (Neon) theme */
+            --page-bg: #050B18;
+            --surface: rgba(255,255,255,0.04);
+            --header-bg: rgba(5,11,24,0.65);
+            --text: #E5E7EB;
+            --muted: #94A3B8;
+            --border: rgba(255,255,255,0.10);
+            --primary: #00E5FF;
+            --accent:  #7C3AED;
+            --cta-text: #061018;
+            --shadow: 0 18px 40px rgba(0,0,0,0.45);
 
             --radius-lg: 18px;
-            --focus-ring: 0 0 0 4px rgba(0, 212, 255, 0.25);
+            --focus-ring: 0 0 0 4px rgba(0, 229, 255, 0.18);
 
-            /* Back-compat mappings */
-            --page-bg: var(--bg-1);
-            --header-bg: rgba(5, 11, 24, 0.75);
-            --primary: var(--cyan);
-            --accent: var(--violet);
-            --cta-text: #EAF2FF;
-            --bg-main: var(--bg-1);
-            --accent-blue: var(--blue);
-            --accent-teal: var(--cyan);
-            --accent-pink: var(--magenta);
+            /* Back-compat mappings (existing CSS uses these) */
+            --bg-main: var(--page-bg);
+            --accent-blue: var(--primary);
+            --accent-teal: var(--primary);
+            --accent-pink: var(--accent);
             --text-main: var(--text);
         }
 
         body {
             font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(ellipse 120% 100% at 50% 0%, #0A1A30 0%, #050B18 50%, #030712 100%);
+            background:
+                radial-gradient(circle at 10% 15%, rgba(0, 229, 255, 0.12) 0, transparent 55%),
+                radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.14) 0, transparent 55%),
+                radial-gradient(circle at 55% 92%, rgba(0, 229, 255, 0.08) 0, transparent 60%),
+                linear-gradient(180deg, rgba(255,255,255,0.02), transparent 35%),
+                var(--page-bg);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
@@ -56,56 +52,24 @@
             line-height: 1.7;
         }
 
-        /* Deep space star field effect */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background-image: 
-                radial-gradient(2px 2px at 20% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
-                radial-gradient(2px 2px at 40% 35%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 60% 10%, rgba(255,255,255,0.8) 0%, transparent 100%),
-                radial-gradient(2px 2px at 80% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 35% 75%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(2px 2px at 55% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.8) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 90% 85%, rgba(255,255,255,0.5) 0%, transparent 100%),
-                radial-gradient(2px 2px at 10% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 25% 30%, rgba(0, 212, 255, 0.9) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 70% 80%, rgba(168, 85, 247, 0.8) 0%, transparent 100%),
-                radial-gradient(1px 1px at 85% 40%, rgba(0, 212, 255, 0.7) 0%, transparent 100%);
-            background-size: 550px 550px;
-            animation: twinkle 8s ease-in-out infinite alternate;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(900px 700px at 70% 35%, rgba(0, 212, 255, 0.08), transparent 60%),
-                radial-gradient(800px 600px at 75% 50%, rgba(168, 85, 247, 0.1), transparent 55%),
-                radial-gradient(600px 500px at 85% 60%, rgba(224, 64, 251, 0.06), transparent 50%),
-                radial-gradient(closest-side at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
-            opacity: 1;
-        }
-
         a {
             color: inherit;
             text-decoration: none;
         }
 
-        .grid3d { display: none; }
+        .grid3d {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.35;
+            transform-origin: center top;
+            transform: perspective(900px) rotateX(62deg) translateY(-120px);
+            pointer-events: none;
+            z-index: 0;
+        }
 
         .page {
             position: relative;
@@ -113,25 +77,12 @@
         }
 
         header {
-            position: fixed;
-            left: 0;
-            right: 0;
+            position: sticky;
             top: 0;
-            z-index: 50;
-            backdrop-filter: blur(14px);
-            background: linear-gradient(180deg, rgba(11,18,32,0.58), rgba(11,18,32,0.28));
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
-
-        header::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -1px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(125,182,207,0.55), rgba(187,119,231,0.55), transparent);
-            opacity: 0.7;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--border);
         }
 
         .nav {
@@ -182,7 +133,7 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            border: 2px solid rgba(125, 182, 207, 0.42);
+            border: 2px solid rgba(0, 229, 255, 0.38);
             width: 80px;
             height: 80px;
             top: 50%;
@@ -194,7 +145,7 @@
         }
 
         .orb-2 {
-            border-color: rgba(187, 119, 231, 0.38);
+            border-color: rgba(124, 58, 237, 0.36);
             width: 95px;
             height: 95px;
             animation: orbitSpin2 10s linear infinite;
@@ -213,11 +164,10 @@
             letter-spacing: 0.12em;
             font-size: 20px;
             text-transform: uppercase;
-            background: linear-gradient(90deg, #00D4FF, #A855F7);
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
         .logo-sub {
@@ -281,54 +231,48 @@
 
         .lang-switch {
             display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(89, 125, 168, 0.35);
-            background: rgba(20, 28, 47, 0.45);
-            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .lang-btn {
-            padding: 0;
+            padding: 5px 12px;
             cursor: pointer;
             background: transparent;
             border: none;
             color: var(--text);
-            font-size: 13px;
-            opacity: 0.72;
-            font-weight: 600;
         }
 
         .lang-btn.active {
-            opacity: 1;
+            background: rgba(0, 229, 255, 0.14);
+            color: var(--text);
         }
 
         .cta-top {
             padding: 10px 26px;
             border-radius: 999px;
-            border: 1px solid rgba(0, 212, 255, 0.4);
-            background: linear-gradient(90deg, #3B82F6 0%, #A855F7 50%, #E040FB 100%);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             box-shadow:
-                0 10px 26px rgba(0, 0, 0, 0.5),
-                0 0 25px rgba(0, 212, 255, 0.25),
-                0 0 40px rgba(168, 85, 247, 0.2);
+                0 12px 26px rgba(0, 0, 0, 0.35);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            color: #FFFFFF;
+            color: var(--cta-text);
             transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
         }
 
         .cta-top:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+            transform: translateY(-1px);
+            filter: brightness(1.05);
             box-shadow:
-                0 16px 34px rgba(0, 0, 0, 0.55),
-                0 0 35px rgba(0, 212, 255, 0.35),
-                0 0 50px rgba(168, 85, 247, 0.3);
+                0 16px 34px rgba(0, 0, 0, 0.48),
+                0 0 22px rgba(0, 229, 255, 0.22),
+                0 0 26px rgba(124, 58, 237, 0.18);
         }
 
         .cta-top:focus {
@@ -370,7 +314,7 @@
         main {
             max-width: 1180px;
             margin: 0 auto;
-            padding: 0 18px 80px 18px;
+            padding: 40px 18px 80px 18px;
         }
 
         section {
@@ -384,194 +328,152 @@
         /* ===== HERO – ТЕКСТ ВЛЯВО + ГОЛЯМ AI ORB ВДЯСНО ===== */
 
         .hero {
-            width: 100vw;
-            min-height: 100vh;
-            padding: 120px 0 54px;
-            position: relative;
-            z-index: 1;
-
-            /* full-bleed section inside a centered main */
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-        }
-
-        .hero-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 0 18px;
             display: grid;
-            grid-template-columns: 55% 45%;
+            grid-template-columns: minmax(0, 1fr) 380px;
+            gap: 38px;
             align-items: center;
-            gap: 28px;
+            justify-items: stretch;
+            padding-top: 32px;
+            padding-bottom: 54px;
         }
 
         .hero-text {
             text-align: left;
-            max-width: 680px;
+            max-width: 820px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            font-size: 12px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .hero-label-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
         }
 
         .hero-title {
-            font-size: 56px;
-            line-height: 1.12;
+            font-size: 52px;
+            line-height: 1.1;
             margin-bottom: 12px;
             letter-spacing: 0.01em;
         }
 
         .hero-title .hl {
-            background: linear-gradient(90deg, #00D4FF 0%, #A855F7 60%, #E040FB 100%);
+            background: linear-gradient(120deg, var(--primary), var(--accent));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 40px rgba(0, 212, 255, 0.4), 0 0 80px rgba(168, 85, 247, 0.3);
+            text-shadow: 0 0 22px rgba(0, 229, 255, 0.12);
         }
 
         .hero-subtitle {
             font-size: 19px;
             color: var(--muted);
             max-width: 650px;
-            margin: 0 0 28px;
+            margin: 0 0 26px;
             text-align: left;
         }
 
         .hero-metrics {
             display: flex;
-            gap: 36px;
+            flex-wrap: wrap;
+            gap: 26px;
             font-size: 15px;
             color: var(--muted);
             justify-content: flex-start;
-            margin-top: 22px;
+            margin-bottom: 14px;
         }
 
         .metric-value {
             font-size: 26px;
             font-weight: 600;
             display: block;
-            color: #00D4FF;
-            letter-spacing: 0.01em;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-        }
-
-        .hero-metrics span:last-child {
-            font-size: 13px;
-            color: var(--muted);
-            line-height: 1.35;
         }
 
         /* === HERO ORB (като референтния сайт) === */
 
-        .hero-visual {
-            position: relative;
-            width: 100%;
-            height: 560px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .hero-orb-big {
+            width: 340px;
+            height: 340px;
+            max-width: 100%;
             cursor: pointer;
-        }
-
-        .orb-wrap {
+            text-align: center;
             position: relative;
+            margin: 0;
+            justify-self: end;
+            animation: none;
+            perspective: 900px;
+            transform-style: preserve-3d;
             isolation: isolate;
         }
 
-        .orb-wrap::before {
+        .hero-orb-big::before {
             content: "";
             position: absolute;
-            inset: -10%;
-            z-index: 4;
-            pointer-events: none;
+            inset: -34px;
             background:
-                radial-gradient(closest-side at 50% 55%, rgba(255, 255, 255, 0.06), transparent 68%),
-                radial-gradient(closest-side at 44% 58%, rgba(0, 212, 255, 0.14), transparent 72%),
-                radial-gradient(closest-side at 62% 44%, rgba(168, 85, 247, 0.12), transparent 75%);
-            filter: blur(22px);
-            opacity: 0.85;
-            mix-blend-mode: screen;
-            -webkit-mask-image: radial-gradient(circle at 50% 52%, #000 0 62%, transparent 82%);
-            mask-image: radial-gradient(circle at 50% 52%, #000 0 62%, transparent 82%);
+                radial-gradient(circle at 30% 25%, rgba(0, 229, 255, 0.22), transparent 55%),
+                radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.18), transparent 60%);
+            filter: blur(10px);
+            opacity: 0.95;
+            z-index: -1;
+            transform: translateZ(0);
         }
 
-        .orb-wrap::after {
-            content: "";
+        .hero-orb-core {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url('assets/images/ai-orb.png') center/cover no-repeat;
+            animation: heroCoreSpin 36s linear infinite;
+            box-shadow:
+                0 18px 40px rgba(0,0,0,0.55),
+                0 0 22px rgba(0, 229, 255, 0.18);
+            transform: translateZ(0);
+            backface-visibility: visible;
+        }
+
+        .hero-orb-ring {
             position: absolute;
-            inset: -8%;
-            z-index: 5;
+            inset: 18px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.14);
+            border-top-color: rgba(0, 229, 255, 0.85);
+            transform: rotateX(70deg);
+            animation: heroRingSpin 18s linear infinite;
             pointer-events: none;
-            background-image:
-                radial-gradient(2px 2px at 20% 15%, rgba(255,255,255,0.85) 0%, transparent 100%),
-                radial-gradient(1.6px 1.6px at 40% 35%, rgba(255,255,255,0.65) 0%, transparent 100%),
-                radial-gradient(1.2px 1.2px at 60% 10%, rgba(255,255,255,0.75) 0%, transparent 100%),
-                radial-gradient(2px 2px at 80% 25%, rgba(255,255,255,0.55) 0%, transparent 100%),
-                radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,0.40) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 35% 75%, rgba(255,255,255,0.60) 0%, transparent 100%),
-                radial-gradient(2px 2px at 55% 45%, rgba(255,255,255,0.50) 0%, transparent 100%),
-                radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.70) 0%, transparent 100%),
-                radial-gradient(1.2px 1.2px at 25% 30%, rgba(0, 212, 255, 0.85) 0%, transparent 100%),
-                radial-gradient(1.6px 1.6px at 70% 80%, rgba(168, 85, 247, 0.75) 0%, transparent 100%);
-            background-size: 520px 520px;
-            background-repeat: repeat;
-            opacity: 0.55;
-            mix-blend-mode: screen;
-            filter: blur(0.15px);
-            transform: translate3d(0, 0, 0);
-            animation: orbStarsDrift 16s linear infinite;
-            -webkit-mask-image: radial-gradient(circle at 50% 52%, #000 0 64%, transparent 84%);
-            mask-image: radial-gradient(circle at 50% 52%, #000 0 64%, transparent 84%);
+            backface-visibility: visible;
         }
 
-        @keyframes orbStarsDrift {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-26px, 14px, 0); }
+        @keyframes heroRingSpin {
+            from { transform: rotateX(70deg) rotateY(0deg); }
+            to   { transform: rotateX(70deg) rotateY(360deg); }
         }
 
-        #hero-3d-container {
-            position: absolute;
-            inset: -6% -10% -18% -10%;
-            pointer-events: none;
-            z-index: 1;
+        @keyframes heroCoreSpin {
+            from { transform: rotateY(0deg); }
+            to   { transform: rotateY(360deg); }
         }
 
-        .hero-orb-img {
-            width: 540px;
-            max-width: 100%;
-            height: auto;
-            position: relative;
-            z-index: 3;
-            opacity: 0.92;
-            mix-blend-mode: lighten;
-            filter:
-                saturate(1.08)
-                contrast(1.06)
-                brightness(0.98)
-                drop-shadow(0 0 60px rgba(0, 212, 255, 0.4))
-                drop-shadow(0 0 120px rgba(168, 85, 247, 0.3))
-                drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-            animation: floatOrb 7s ease-in-out infinite;
-            -webkit-mask-image: radial-gradient(circle at 50% 52%, #000 0 66%, transparent 86%);
-            mask-image: radial-gradient(circle at 50% 52%, #000 0 66%, transparent 86%);
-        }
-
-        .hero-platform-css {
-            position: absolute;
-            left: 50%;
-            top: 78%;
-            transform: translateX(-50%);
-            width: 540px;
-            height: 200px;
-            z-index: 2;
-            pointer-events: none;
-            background:
-                radial-gradient(closest-side at 50% 55%, rgba(0, 212, 255, 0.25), transparent 70%),
-                radial-gradient(closest-side at 50% 55%, rgba(168, 85, 247, 0.18), transparent 72%);
-            filter: blur(1px);
-            opacity: 0.9;
-        }
-
-        @keyframes floatOrb {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .hero-orb-caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--muted);
+            text-align: center;
         }
 
         /* ===== СЕКЦИИ / КАРТИ ===== */
@@ -609,11 +511,11 @@
 
         .card:hover {
             transform: translateY(-2px);
-            border-color: rgba(125, 182, 207, 0.32);
+            border-color: rgba(0, 229, 255, 0.28);
             box-shadow:
                 var(--shadow),
-                0 0 0 1px rgba(125, 182, 207, 0.10),
-                0 0 26px rgba(187, 119, 231, 0.12);
+                0 0 0 1px rgba(0, 229, 255, 0.12),
+                0 0 26px rgba(0, 229, 255, 0.12);
         }
 
         .card h3 {
@@ -701,7 +603,7 @@
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: rgba(125, 182, 207, 0.38);
+            border-color: rgba(0, 229, 255, 0.45);
             box-shadow: var(--focus-ring);
         }
 
@@ -710,7 +612,7 @@
             justify-self: start;
             padding: 10px 16px;
             border-radius: 12px;
-            border: 1px solid rgba(125, 182, 207, 0.28);
+            border: 1px solid rgba(0, 229, 255, 0.35);
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: var(--cta-text);
             font-weight: 600;
@@ -722,9 +624,9 @@
             transform: translateY(-1px);
             filter: brightness(1.05);
             box-shadow:
-                0 14px 32px rgba(0, 0, 0, 0.55),
-                0 0 22px rgba(89, 125, 168, 0.22),
-                0 0 26px rgba(187, 119, 231, 0.20);
+                0 14px 32px rgba(0, 0, 0, 0.45),
+                0 0 22px rgba(0, 229, 255, 0.20),
+                0 0 26px rgba(124, 58, 237, 0.18);
         }
 
         .btn-primary:focus {
@@ -763,13 +665,10 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: rgba(5, 11, 24, 0.85);
-            border: 1px solid rgba(0, 212, 255, 0.4);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             box-shadow:
-                0 18px 40px rgba(0, 0, 0, 0.55),
-                0 0 30px rgba(0, 212, 255, 0.25),
-                0 0 60px rgba(168, 85, 247, 0.15);
-            backdrop-filter: blur(16px);
+                0 18px 40px rgba(0, 0, 0, 0.48),
+                0 0 22px rgba(0, 229, 255, 0.18);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -777,14 +676,9 @@
             z-index: 20;
         }
 
-        .chatbot-launcher.hidden {
-            display: none;
-        }
-
         .chatbot-launcher span {
             font-size: 26px;
-            color: var(--cyan);
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+            color: var(--cta-text);
         }
 
         .chatbot-window {
@@ -794,12 +688,10 @@
             width: 320px;
             max-height: 430px;
             border-radius: 18px;
-            background: rgba(5, 11, 24, 0.92);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 
-                0 18px 40px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(0, 212, 255, 0.1);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -812,7 +704,7 @@
 
         .chatbot-header {
             padding: 10px 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -858,15 +750,15 @@
 
         .chat-msg.bot {
             align-self: flex-start;
-            background: rgba(11, 18, 32, 0.35);
-            border: 1px solid rgba(89, 125, 168, 0.18);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
             color: var(--text);
         }
 
         .chat-msg.user {
             align-self: flex-end;
-            background: linear-gradient(135deg, rgba(89, 125, 168, 0.22), rgba(187, 119, 231, 0.14));
-            border: 1px solid rgba(89, 125, 168, 0.28);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.14), rgba(124, 58, 237, 0.12));
+            border: 1px solid rgba(0, 229, 255, 0.22);
             color: var(--text);
         }
 
@@ -874,8 +766,8 @@
             padding: 8px;
             display: flex;
             gap: 6px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            background: rgba(11, 18, 32, 0.16);
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .chatbot-input-area input {
@@ -886,75 +778,26 @@
         .chatbot-input-area button {
             padding: 6px 10px;
             border-radius: 999px;
-            border: 1px solid rgba(0, 212, 255, 0.35);
-            background: linear-gradient(90deg, #3B82F6 0%, #A855F7 100%);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             cursor: pointer;
             font-size: 12px;
-            color: #FFFFFF;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 20;
-        }
-
-        .nav-toggle span {
-            width: 100%;
-            height: 3px;
-            background-color: var(--text);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px); /* Adjusted for visual center */
+            color: var(--cta-text);
         }
 
         /* ===== RESPONSIVE ===== */
 
         @media (max-width: 960px) {
-            .nav-toggle {
-                display: flex;
-                margin-left: 16px;
+            .nav {
+                flex-wrap: wrap;
             }
-
             .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
+                order: 3;
                 width: 100%;
-                flex-direction: column;
-                background: var(--header-bg);
-                backdrop-filter: blur(20px);
-                border-bottom: 1px solid var(--border);
-                padding: 20px 0;
-                gap: 20px;
-                align-items: center;
-                z-index: 100;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            }
-
-            .nav-links.active {
-                display: flex;
+                justify-content: center;
+                margin-top: 6px;
+                flex-wrap: wrap;
+                overflow-x: visible;
             }
         }
 
@@ -967,18 +810,23 @@
 
         @media (max-width: 860px) {
             .hero {
-                padding-top: 110px;
-            }
-
-            .hero-inner {
                 grid-template-columns: 1fr;
                 text-align: center;
+                justify-items: center;
             }
             .hero-text {
                 text-align: center;
             }
             .hero-metrics {
                 justify-content: center;
+            }
+            .hero-subtitle {
+                margin: 0 auto 26px;
+                text-align: center;
+            }
+            .hero-orb-big {
+                margin: 0 auto;
+                justify-self: center;
             }
             .two-col,
             .contact-grid {
@@ -990,23 +838,9 @@
             .hero-title {
                 font-size: 36px;
             }
-            .hero-orb-img {
-                width: 360px;
-            }
             .chatbot-window {
                 right: 10px;
                 width: calc(100% - 20px);
-            }
-        }
-
-        /* Desktop: show chatbot card by default (reference-like) */
-        @media (min-width: 861px) {
-            .chatbot-window {
-                bottom: 22px;
-                max-height: 460px;
-            }
-            .chatbot-launcher {
-                display: none;
             }
         }
     </style>
@@ -1018,7 +852,7 @@
     <header>
         <div class="nav">
             <div class="nav-left">
-                <div class="logo-wrapper">
+                <a class="logo-wrapper logo-link" href="index.html" aria-label="AUTOMEXA AI – Начало">
                     <div class="logo-orb">
                         <img src="assets/images/brain-logo.png" alt="Automexa AI" class="brain-img" />
                         <div class="orb orb-1"></div>
@@ -1028,7 +862,7 @@
                         <div class="logo-title" data-i18n="logo-main">AUTOMEXA AI</div>
                         <div class="logo-sub" data-i18n="logo-sub">Автоматизиран свят за вашия бизнес</div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <nav class="nav-links">
@@ -1045,28 +879,21 @@
                     <button class="lang-btn" data-lang="en">EN</button>
                 </div>
                 <a class="cta-top" href="audit.html" data-i18n="nav-audit">Безплатен AI одит</a>
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
         </div>
     </header>
 
     <main>
         <!-- HERO -->
-        <section class="hero cosmic-hero" id="home">
-            <div class="hero-bg" aria-hidden="true">
-                <canvas id="hero-stars"></canvas>
-                <canvas id="hero-trails"></canvas>
-                <div class="hero-nebula"></div>
-                <div class="hero-vignette"></div>
-            </div>
-            <div class="hero-inner">
+        <section class="hero" id="home">
             <div class="hero-text">
+                <div class="hero-label">
+                    <span class="hero-label-dot"></span>
+                    <span data-i18n="hero-label">AI Автоматизация • Следващо ниво</span>
+                </div>
+
                 <h1 class="hero-title" data-i18n="hero-title">
-                    <span class="hl">AI автоматизация</span> за<br />интелигентни процеси
+                    <span class="hl">AI</span> <span class="hl">автоматизация</span> за <span class="hl">интелигентни</span> процеси
                 </h1>
 
                 <p class="hero-subtitle" data-i18n="hero-subtitle">
@@ -1077,107 +904,29 @@
                 <div class="hero-metrics">
                     <div>
                         <span class="metric-value">24/7</span>
-                        <span data-i18n="metric-1">AI агенти<br />без почивка</span>
+                        <span data-i18n="metric-1">AI агенти без почивка</span>
                     </div>
                     <div>
                         <span class="metric-value">-40%</span>
-                        <span data-i18n="metric-2">средно по-малко<br />оперативни разходи</span>
+                        <span data-i18n="metric-2">средно по-малко оперативни разходи</span>
                     </div>
                     <div>
                         <span class="metric-value">3&nbsp;мес.</span>
-                        <span data-i18n="metric-3">типичен период<br />за внедряване</span>
+                        <span data-i18n="metric-3">типичен период за внедряване</span>
                     </div>
                 </div>
             </div>
 
-            <div class="hero-visual" id="hero-orb" aria-label="Hero visual">
-                <div class="hero-floor" aria-hidden="true"></div>
-                <div class="orb-wrap">
-                    <div class="orb-glow" aria-hidden="true"></div>
-                    <div class="holo-base" aria-hidden="true">
-                        <span class="holo-ring ring-1"></span>
-                        <span class="holo-ring ring-2"></span>
-                        <span class="holo-ring ring-3"></span>
-                        <span class="holo-grid"></span>
-                    </div>
-                    <img src="assets/images/ai-orb.png" alt="AI Orb" class="hero-orb-img" />
-                </div>
-            </div>
-            </div>
-        </section>
-
-        <!-- КАКВО Е ИИ -->
-        <section id="ai">
-            <div class="two-col">
-                <div>
-                    <h2 class="section-heading" data-i18n="ai101-title">Какво е ИИ (изкуствен интелект)?</h2>
-                    <p class="section-sub" data-i18n="ai101-sub">
-                        Ако темата ви звучи сложна или "страшна", не сте сами. В бизнеса ИИ не е робот, който "замества хора",
-                        а инструмент, който помага на екипите да работят по-бързо, по-точно и с по-малко напрежение.
-                    </p>
-
-                    <p data-i18n="ai101-p1">
-                        Изкуственият интелект е софтуер, който разпознава модели в данни (текст, числа, изображения) и може да
-                        подпомага решения или да изпълнява конкретни задачи – например да отговаря на въпроси, да класифицира документи
-                        или да сигнализира за риск. В практиката най-често става дума за "тесен" ИИ: много добър в една конкретна работа,
-                        но не и "разум" като във филмите.
-                    </p>
-
-                    <p data-i18n="ai101-p2">
-                        Най-важното: ИИ работи най-добре, когато има ясни правила, човешки контрол и измерими цели. Затова внедряването
-                        в бизнеса е процес – започва се с пилот, измерва се ефектът и чак тогава се разширява.
-                    </p>
-
-                    <h3 style="margin-top:14px; font-size:19px;" data-i18n="ai101-uses-title">За какво се използва ИИ в бизнеса?</h3>
-                    <ul class="list" style="margin-top:8px;">
-                        <li data-i18n="ai101-use-1">Обслужване на клиенти: чатботи за FAQ, заявки, статуси, насочване към правилния отдел</li>
-                        <li data-i18n="ai101-use-2">Документи: извличане на данни от фактури/договори, класификация, проверка за липси</li>
-                        <li data-i18n="ai101-use-3">Операции: автоматизация на повтаряеми действия в ERP/CRM (RPA + AI)</li>
-                        <li data-i18n="ai101-use-4">Анализи: прогнози за търсене/натоварване, откриване на аномалии и грешки</li>
-                        <li data-i18n="ai101-use-5">Качество и сигурност: видеоаналитика, ранни предупреждения, контрол в реално време</li>
-                    </ul>
-
-                    <button class="btn-primary" style="margin-top:14px;"
-                            onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"
-                            data-i18n="ai101-cta">
-                        Вижте къде ИИ ще помогне при вас
-                    </button>
-                </div>
-
-                <div>
-                    <div class="card" style="margin-bottom:14px;">
-                        <h3 data-i18n="ai101-fears-title">Страхове vs. реалност</h3>
-                        <ul class="list" style="margin-top:10px;">
-                            <li data-i18n="ai101-fear-1">"Ще ни вземе работата" → ИИ най-често поема рутината; хората остават за контрол, връзка с клиенти и решения</li>
-                            <li data-i18n="ai101-fear-2">"Ще прави грешки" → затова има правила, ограничения и човешко одобрение за критични стъпки</li>
-                            <li data-i18n="ai101-fear-3">"Нямаме данни" → може да се започне с малки процеси и постепенно да се подобрява качеството на данните</li>
-                            <li data-i18n="ai101-fear-4">"Скъпо е" → пилотният проект показва реалната възвръщаемост преди мащабиране</li>
-                        </ul>
-                        <p class="tagline" data-i18n="ai101-fears-tag">Целта е по-силен екип, не по-малък екип.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3 data-i18n="ai101-start-title">Как да започнете безопасно (практично)</h3>
-                        <div class="step" style="margin-top:10px;">
-                            <div class="step-title" data-i18n="ai101-start-1-title">1) Изберете 1 процес с много рутина</div>
-                            <div class="step-body" data-i18n="ai101-start-1-body">Например входящи имейли, фактури, заявки, отчетност или първо ниво клиентска поддръжка.</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-title" data-i18n="ai101-start-2-title">2) Задайте правила и граници</div>
-                            <div class="step-body" data-i18n="ai101-start-2-body">Кога ИИ има право да действа сам и кога задължително пита човек за одобрение.</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-title" data-i18n="ai101-start-3-title">3) Мерете резултата</div>
-                            <div class="step-body" data-i18n="ai101-start-3-body">Време за обработка, грешки, удовлетвореност, разходи – ако няма метрика, няма и контрол.</div>
-                        </div>
-                        <div class="step" style="margin-bottom:0;">
-                            <div class="step-title" data-i18n="ai101-start-4-title">4) Разширете само ако има ефект</div>
-                            <div class="step-body" data-i18n="ai101-start-4-body">След успешен пилот автоматизацията се мащабира към още процеси и отдели.</div>
-                        </div>
-                    </div>
+            <div class="hero-orb-big" id="hero-orb">
+                <div class="hero-orb-core" aria-hidden="true"></div>
+                <div class="hero-orb-ring" aria-hidden="true"></div>
+                <div class="hero-orb-caption" data-i18n="hero-orb-caption">
+                    Кликни тук – това е AI чатботът на AUTOMEXA AI.
                 </div>
             </div>
         </section>
+
+        <!-- КАКВО Е ИИ section removed -->
 
         <!-- УСЛУГИ -->
         <section id="services">
@@ -1405,7 +1154,7 @@
     <span>💬</span>
 </div>
 
-<div class="chatbot-window open" id="chatbot-window">
+<div class="chatbot-window" id="chatbot-window">
     <div class="chatbot-header">
         <div class="chatbot-header-title">
             <span data-i18n="chat-header-title">AutoMexa AI Асистент</span>
@@ -1425,7 +1174,6 @@
     </div>
 </div>
 
-<script src="assets/js/hero-bg.js"></script>
 <script>
     const translations = {
         bg: {
@@ -1566,6 +1314,7 @@
         en: {
             "logo-main": "AUTOMEXA AI",
             "logo-sub": "An automated world for your business",
+            "nav-ai": "What is AI",
             "nav-services": "Services",
             "nav-industries": "Who it's for",
             "nav-how": "How it works",
@@ -1740,18 +1489,12 @@
 
     function toggleChat(open) {
         chatWindow.classList.toggle("open", open);
-        launcher.classList.toggle("hidden", open);
     }
 
     launcher.addEventListener("click", () =>
         toggleChat(!chatWindow.classList.contains("open"))
     );
     chatClose.addEventListener("click", () => toggleChat(false));
-
-    // Open by default on desktop to match the reference-like visible widget.
-    if (window.matchMedia("(min-width: 861px)").matches) {
-        toggleChat(true);
-    }
 
     function addMessage(text, from = "user") {
         const div = document.createElement("div");
@@ -1787,8 +1530,8 @@
             t.includes("artificial intelligence")
         ) {
             return currentLang === "bg"
-                ? "ИИ (изкуствен интелект) е софтуер, който разпознава модели в данни и помага да се автоматизират конкретни задачи – напр. отговори към клиенти, обработка на документи или откриване на грешки. В бизнеса целта е да поеме рутината и да остави хората за контрол и решения. Ако ми кажеш какъв е процесът ти, ще предложа 2–3 конкретни идеи за автоматизация."
-                : "AI (artificial intelligence) is software that finds patterns in data and helps automate specific tasks—like customer support, document processing or spotting errors. In business, the goal is to take routine work off your team, while people stay in control of decisions. If you share your process, I can suggest 2–3 practical automation ideas.";
+                ? "ИИ (изкуствен интелект) е софтуер, който разпознава модели в данни и помага да се автоматизират конкретни задачи – напр. отговори към клиенти, обработка на документи или откриване на грешки. В бизнеса целта е да поеме рутината и да остави хората за контрол и решения. Виж и секцията „Какво е ИИ“ в сайта за кратко обяснение."
+                : "AI (artificial intelligence) is software that finds patterns in data and helps automate specific tasks—like customer support, document processing or spotting errors. In business, the goal is to take routine work off your team, while people stay in control of decisions. See the “What is AI” section on the site for a short overview.";
         }
 
         if (t.includes("ще ми вземе работата") || t.includes("ще вземе работата") || t.includes("job") || t.includes("take my job")) {
@@ -1861,7 +1604,5 @@
         }, 500);
     }
 </script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/hero-3d.js"></script>
 </body>
 </html>
