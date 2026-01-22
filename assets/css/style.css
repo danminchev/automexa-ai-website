@@ -74,6 +74,9 @@ header {
 .page {
   position: relative;
   z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -282,6 +285,33 @@ main {
   max-width: 1320px;
   margin: 0 auto;
   padding: 40px 18px 80px 18px;
+  flex: 1 0 auto;
+}
+
+/* Shared footer (consistent across all pages) */
+.site-footer {
+  margin-top: 24px;
+  padding: 18px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  background: rgba(5, 11, 24, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-footer .footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+@media (max-width: 520px) {
+  .site-footer {
+    padding: 16px 14px;
+    font-size: 12px;
+  }
 }
 
 /* CTA neon gradient + hover */
