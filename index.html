@@ -86,9 +86,9 @@
         }
 
         .nav {
-            max-width: 1180px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 10px 18px;
+            padding: 8px clamp(16px, 2vw, 32px);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -100,7 +100,7 @@
         .nav-left {
             display: flex;
             align-items: center;
-            margin-left: -16px;
+            margin-left: 0;
         }
 
         .logo-wrapper {
@@ -156,6 +156,8 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
+            align-items: flex-start;
+            text-align: left;
         }
 
         .logo-title {
@@ -168,12 +170,14 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            line-height: 1.1;
         }
 
         .logo-sub {
             font-size: 11px;
             color: var(--muted);
             text-transform: uppercase;
+            line-height: 1.1;
         }
 
         /* ===== НАВ ЛИНКОВЕ В СРЕДАТА ===== */
@@ -312,13 +316,13 @@
         }
 
         main {
-            max-width: 1180px;
+            max-width: 1320px;
             margin: 0 auto;
-            padding: 40px 18px 80px 18px;
+            padding: 28px 18px 72px 18px;
         }
 
         section {
-            padding: 70px 0;
+            padding: 56px 0;
         }
 
         .section-heading {
@@ -329,12 +333,12 @@
 
         .hero {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) 380px;
-            gap: 38px;
+            grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 380px);
+            gap: clamp(16px, 2.4vw, 30px);
             align-items: center;
             justify-items: stretch;
-            padding-top: 32px;
-            padding-bottom: 54px;
+            padding-top: 18px;
+            padding-bottom: 40px;
         }
 
         .hero-text {
@@ -366,7 +370,7 @@
         }
 
         .hero-title {
-            font-size: 52px;
+            font-size: clamp(34px, 4.8vw, 52px);
             line-height: 1.1;
             margin-bottom: 12px;
             letter-spacing: 0.01em;
@@ -381,7 +385,7 @@
         }
 
         .hero-subtitle {
-            font-size: 19px;
+            font-size: clamp(16px, 2.0vw, 19px);
             color: var(--muted);
             max-width: 650px;
             margin: 0 0 26px;
@@ -407,8 +411,8 @@
         /* === HERO ORB (като референтния сайт) === */
 
         .hero-orb-big {
-            width: 340px;
-            height: 340px;
+            width: clamp(260px, 34vw, 340px);
+            height: clamp(260px, 34vw, 340px);
             max-width: 100%;
             cursor: pointer;
             text-align: center;
@@ -799,12 +803,24 @@
                 flex-wrap: wrap;
                 overflow-x: visible;
             }
+
+            .nav-right {
+                order: 2;
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                row-gap: 10px;
+            }
         }
 
         @media (max-width: 520px) {
             .nav-links {
                 gap: 16px;
                 font-size: 15px;
+            }
+
+            .cta-top {
+                padding: 10px 16px;
             }
         }
 
@@ -838,6 +854,19 @@
             .hero-title {
                 font-size: 36px;
             }
+
+            .hero-metrics {
+                gap: 18px;
+            }
+
+            .metric-value {
+                font-size: 22px;
+            }
+
+            .hero-orb-big::before {
+                inset: -18px;
+            }
+
             .chatbot-window {
                 right: 10px;
                 width: calc(100% - 20px);
